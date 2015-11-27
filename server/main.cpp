@@ -24,5 +24,5 @@ catch (exception &e)
 }
 catch (...)
 {
-    cerr << "Uknown exception" << '\n';
+    cerr << "Unknown exception" << '\n';
 }
