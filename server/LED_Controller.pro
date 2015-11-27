@@ -30,6 +30,3 @@ HEADERS += \
     irgbled.h \
     rgbled.h
 
-win32 {
-INCLUDEPATH += "C:\boost_root\boost_1_59_0"
-}
