@@ -11,8 +11,8 @@ public:
 
     RgbLed(std::ostream &out,
            LedState start_state = false,
-           Color start_color = Color::RED,
-           Rate start_rate = 0);
+           Color start_color = DEFAULT_COLOR,
+           Rate start_rate = DEFAULT_RATE);
 
     ~RgbLed() override = default;
 
