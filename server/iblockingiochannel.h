@@ -2,10 +2,21 @@
 #define IBLOCKINGIOCHANNEL_H
 
 #include <string>
+#include <stdexcept>
 
 class IBlockingIOChannel
 {
 public:
+
+    class InternalException : public std::runtime_error
+    {
+    public:
+        InternalException(const std::string &msg)
+            : runtime_error("IBlockingIOChannel::InternalException: " + msg)
+        {
+        }
+    };
+
     /**
      * Blocks until a line is read from input,
      * trailing newline character is discarded.
