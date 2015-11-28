@@ -4,12 +4,20 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
+    ledrqhandler.cpp \
+    abstractrqhandler.cpp \
     ledmanager.cpp \
-    ledserver.cpp \
-    rgbled.cpp
+    rgbled.cpp \
+    ledserver.cpp
 
-include(deployment.pri)
-qtcAddDeployment()
+HEADERS += \
+    abstractrqhandler.h \
+    ledrqhandler.h \
+    rgbled.h \
+    irgbled.h \
+    ledmanager.h \
+    iledmanager.h \
+    ledserver.h
 
 *g++*{
 QMAKE_CXXFLAGS +=   -Weffc++ -std=c++11 -pedantic -Wall -Wextra \
@@ -22,11 +30,4 @@ QMAKE_CXXFLAGS +=   -Weffc++ -std=c++11 -pedantic -Wall -Wextra \
                     -Wsign-conversion  \
                     -Wconversion \
 }
-
-HEADERS += \
-    iledmanager.h \
-    ledmanager.h \
-    ledserver.h \
-    irgbled.h \
-    rgbled.h
 

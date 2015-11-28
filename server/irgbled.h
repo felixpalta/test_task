@@ -21,7 +21,7 @@ public:
     class IRgbLedInternalException : public std::runtime_error
     {
     public:
-        IRgbLedInternalException(const string &msg)
+        IRgbLedInternalException(const std::string &msg)
             : std::runtime_error("IRgbLedInternalException: " + msg)
         {
         }

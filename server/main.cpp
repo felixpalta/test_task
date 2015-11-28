@@ -1,6 +1,7 @@
 #include "rgbled.h"
 #include "ledmanager.h"
 #include "ledserver.h"
+#include "ledrqhandler.h"
 #include <iostream>
 
 using namespace std;
@@ -8,6 +9,7 @@ using namespace std;
 int main()
 try
 {
+
     RgbLed led(cout);
 
     LedManager led_manager(led);
