@@ -20,9 +20,9 @@ public:
     bool set_color(Color color) override;
     bool set_rate(Rate rate) override;
 
-    boost::optional<LedState> get_state() const override;
-    boost::optional<Color> get_color() const override;
-    boost::optional<Rate> get_rate() const override;
+    LedState get_state() const override;
+    Color get_color() const override;
+    Rate get_rate() const override;
 
 private:
     std::ostream &m_out;

@@ -25,21 +25,18 @@ string LedManager::process_command(const string &command)
     {
         if (directive == "get-led-state")
         {
-            boost::optional<IRgbLed::LedState> state_result = led_.get_state();
-            if (state_result)
-                return get_ok_with_result(*state_result ? "on" : "off");
+            IRgbLed::LedState state_result = led_.get_state();
+            return get_ok_with_result(*state_result ? "on" : "off");
         }
         else if (directive == "get-led-rate")
         {
-            boost::optional<IRgbLed::Rate> rate_result= led_.get_rate();
-            if (rate_result)
-                return get_ok_with_result(to_string(*rate_result));
+            IRgbLed::Rate rate_result= led_.get_rate();
+            return get_ok_with_result(to_string(*rate_result));
         }
         else if (directive == "get-led-color")
         {
-            boost::optional<IRgbLed::Color> color_result = led_.get_color();
-            if (color_result)
-                return get_ok_with_result(get_color_name(*color_result));
+            IRgbLed::Color color_result = led_.get_color();
+            return get_ok_with_result(get_color_name(*color_result));
         }
         else
             return get_failed_string();

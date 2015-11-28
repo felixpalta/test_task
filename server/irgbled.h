@@ -1,7 +1,7 @@
 #ifndef IRGBLED_H
 #define IRGBLED_H
 
-#include <boost/optional.hpp>
+#include <stdexcept>
 
 class IRgbLed
 {
@@ -18,13 +18,30 @@ public:
     using LedState = bool;
     using Rate = int;
 
+    class IRgbLedInternalException : public std::runtime_error
+    {
+    public:
+        IRgbLedInternalException(const string &msg)
+            : std::runtime_error("IRgbLedInternalException: " + msg)
+        {
+        }
+    };
+
+    /**
+     * @return false in case of invalid parameters.
+     * @throw IRgbLedInternalException in case of internal error.
+     */
     virtual bool set_state(LedState state) = 0;
     virtual bool set_color(Color color) = 0;
     virtual bool set_rate(Rate rate) = 0;
 
-    virtual boost::optional<LedState> get_state() const = 0;
-    virtual boost::optional<Color> get_color() const = 0;
-    virtual boost::optional<Rate> get_rate() const = 0;
+
+    /**
+     * @throw IRgbLedInternalException in case of internal error.
+     */
+    virtual LedState get_state() const = 0;
+    virtual Color get_color() const = 0;
+    virtual Rate get_rate() const = 0;
 
     virtual ~IRgbLed() = default;
 };

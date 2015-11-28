@@ -1,6 +1,4 @@
 #include "rgbled.h"
-#include <iostream>
-#include <stdexcept>
 
 using namespace std;
 
@@ -10,7 +8,7 @@ RgbLed::RgbLed(ostream &out,
                Rate start_rate)
     : m_out(out),
       m_state(start_state),
-      m_color(is_valid_color(int(start_color)) ? Color(start_color) : DEFAULT_COLOR),
+      m_color(is_valid_color(int(start_color)) ? start_color : DEFAULT_COLOR),
       m_rate(is_valid_rate(start_rate) ? start_rate : DEFAULT_RATE)
 {
 }
@@ -19,7 +17,7 @@ bool RgbLed::set_state(LedState state)
 {
     m_state = state;
 
-    m_out << "State set: " << boolalpha << state << '\n';
+    m_out << "RGB Led state set: " << boolalpha << state << '\n';
 
     return true;
 }
@@ -31,7 +29,7 @@ bool RgbLed::set_color(Color color)
         return false;
 
     m_color = color;
-    m_out << "Color set: " << get_color_name(color) << '\n';
+    m_out << "RGB Led color set: " << get_color_name(color) << '\n';
     return true;
 }
 
@@ -41,21 +39,21 @@ bool RgbLed::set_rate(int rate)
         return false;
 
     m_rate = rate;
-    m_out << "Rate set: " << rate << '\n';
+    m_out << "RGB Led rate set: " << rate << '\n';
     return true;
 }
 
-boost::optional<RgbLed::LedState> RgbLed::get_state() const
+RgbLed::LedState RgbLed::get_state() const
 {
     return m_state;
 }
 
-boost::optional<RgbLed::Color> RgbLed::get_color() const
+RgbLed::Color RgbLed::get_color() const
 {
     return m_color;
 }
 
-boost::optional<RgbLed::Rate> RgbLed::get_rate() const
+RgbLed::Rate RgbLed::get_rate() const
 {
     return m_rate;
 }
@@ -78,7 +76,7 @@ bool RgbLed::is_valid_color(int color)
     }
 }
 
-std::string RgbLed::get_color_name(RgbLed::Color color)
+std::string RgbLed::get_color_name(Color color)
 {
     switch (color)
     {
