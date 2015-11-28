@@ -27,6 +27,8 @@ private:
 
     static IRgbLed::Rate get_rate_value(const std::string& s);
 
+    LedRqHandler(const LedRqHandler&) = delete;
+    LedRqHandler& operator=(const LedRqHandler&) = delete;
 
 };
 

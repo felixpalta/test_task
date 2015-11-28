@@ -37,6 +37,9 @@ private:
 
     static const Rate DEFAULT_RATE = 0;
     static const Color DEFAULT_COLOR = Color::RED;
+
+    RgbLed(const RgbLed&) = delete;
+    RgbLed& operator=(const RgbLed&) = delete;
 };
 
 #endif // RGBLED_H

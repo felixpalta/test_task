@@ -20,6 +20,9 @@ private:
 
     std::string m_input_pipe_name;
     std::string m_output_pipe_name;
+
+    FifoPair(const FifoPair&) = delete;
+    FifoPair& operator=(const FifoPair&) = delete;
 };
 
 #endif // FIFOPAIR_H
