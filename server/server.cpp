@@ -26,10 +26,7 @@ void Server::run()
 
         std::string input = m_channel_handler_pair.first->read_input_line_blocking();
 
-        std::string params;
-        auto rq_type = m_channel_handler_pair.second->extract_rq_type_and_params(input, params);
-
-        std::string output = m_channel_handler_pair.second->process_request(rq_type, params);
+        std::string output = m_channel_handler_pair.second->process_request(input);
 
         m_channel_handler_pair.first->write_output_line_blocking(output);
     }

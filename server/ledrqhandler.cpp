@@ -18,12 +18,12 @@ std::string LedRqHandler::strip(const std::string &params)
     auto params_end = std::find_if(params_begin, params.cend(), [](char c){return std::isspace(c);});
 
     if (params_end != params.cend())
-        throw ParamParsingException("LedRqHandler::process_request(): parameter contains trailing characters: \"" + std::string(params_end, params.cend()) + "\"");
+        throw ParamParsingException("LedRqHandler::process_rq(): parameter contains trailing characters: \"" + std::string(params_end, params.cend()) + "\"");
 
     return std::string(params_begin, params_end);
 }
 
-std::string LedRqHandler::process_request(RqType rq_type, const std::string& params)
+std::string LedRqHandler::process_rq(RqType rq_type, const std::string& params)
 {
     std::string retval;
 
@@ -38,7 +38,7 @@ std::string LedRqHandler::process_request(RqType rq_type, const std::string& par
         {
             case RqType::LED_GET_COLOR:
                 if (params.length() != 0)
-                    throw ParamParsingException("LedRqHandler::process_request(): parameters or trailing whitespace are not allowed for this request");
+                    throw ParamParsingException("LedRqHandler::process_rq(): parameters or trailing whitespace are not allowed for this request");
 
                 color = m_rgb_led->get_color();
                 retval = get_ok_with_result(get_color_name(color));
@@ -46,7 +46,7 @@ std::string LedRqHandler::process_request(RqType rq_type, const std::string& par
 
             case RqType::LED_GET_RATE:
                 if (params.length() != 0)
-                    throw ParamParsingException("LedRqHandler::process_request(): trailing characters for this request are not allowed");
+                    throw ParamParsingException("LedRqHandler::process_rq(): trailing characters for this request are not allowed");
 
                 rate = m_rgb_led->get_rate();
                 retval = get_ok_with_result(std::to_string(rate));
@@ -54,7 +54,7 @@ std::string LedRqHandler::process_request(RqType rq_type, const std::string& par
 
             case RqType::LED_GET_STATUS:
                 if (params.length() != 0)
-                    throw ParamParsingException("LedRqHandler::process_request(): trailing characters for this request are not allowed");
+                    throw ParamParsingException("LedRqHandler::process_rq(): trailing characters for this request are not allowed");
 
                 state = m_rgb_led->get_state();
                 retval = get_ok_with_result(get_state_name(state));
@@ -76,7 +76,7 @@ std::string LedRqHandler::process_request(RqType rq_type, const std::string& par
                 break;
 
             default:
-                m_err << "LedRqHandler::process_request(): Invalid request type" << '\n';
+                m_err << "LedRqHandler::process_rq(): Invalid request type" << '\n';
                 retval = get_failed_string();
                 break;
         }
@@ -86,7 +86,7 @@ std::string LedRqHandler::process_request(RqType rq_type, const std::string& par
         // TODO: Add internal exception logging.
         retval = get_failed_string();
 
-        m_err << "LedRqHandler::process_request(): " << e.what() << '\n';
+        m_err << "LedRqHandler::process_rq(): " << e.what() << '\n';
     }
 
     return retval;

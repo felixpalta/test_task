@@ -1,7 +1,7 @@
 #ifndef ISERVER_H
 #define ISERVER_H
 
-#include "abstractrqhandler.h"
+#include "irqhandler.h"
 #include "iblockingiochannel.h"
 #include <memory>
 #include <stdexcept>
@@ -20,7 +20,7 @@ public:
     };
 
     using IOPtr = std::shared_ptr<IBlockingIOChannel>;
-    using RqHandlerPtr = std::shared_ptr<AbstractRqHandler>;
+    using RqHandlerPtr = std::shared_ptr<IRqHandler>;
 
     virtual void add(IOPtr io_channel, RqHandlerPtr handler) = 0;
     virtual void run() = 0;

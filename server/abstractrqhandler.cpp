@@ -22,6 +22,13 @@ AbstractRqHandler::RqType AbstractRqHandler::get_rq_type(const std::string& requ
     return RqType::INVALID_RQ_TYPE;
 }
 
+std::string AbstractRqHandler::process_request(const std::string& input)
+{
+    std::string params;
+    RqType rq_type = extract_rq_type_and_params(input, params);
+    return process_rq(rq_type, params);
+}
+
 AbstractRqHandler::RqType AbstractRqHandler::extract_rq_type_and_params(const std::string& full_input, std::string& params)
 {
     if (full_input.length() == 0)

@@ -19,7 +19,8 @@ HEADERS += \
     iblockingiochannel.h \
     fifopair.h \
     iserver.h \
-    server.h
+    server.h \
+    irqhandler.h
 
 *g++*{
 QMAKE_CXXFLAGS +=   -Weffc++ -std=c++11 -pedantic -Wall -Wextra \
