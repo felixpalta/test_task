@@ -3,6 +3,8 @@
 LedRqHandler::LedRqHandler(std::shared_ptr<IRgbLed> led)
     : m_rgb_led(led)
 {
+    if (!m_rgb_led)
+        throw std::invalid_argument("LedRgbHandler(): led ptr is null");
 }
 
 std::string LedRqHandler::process_request(RqType rq_type, const std::string& params)

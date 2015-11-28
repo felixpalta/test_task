@@ -25,6 +25,8 @@ public:
 
     static RqType get_rq_type(const std::string& request_name);
 
+    static RqType extract_rq_type_and_params(const std::string& full_input, std::string& params);
+
     class ParamParsingException : public std::runtime_error
     {
     public:

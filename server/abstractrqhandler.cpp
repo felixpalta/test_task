@@ -19,3 +19,16 @@ AbstractRqHandler::RqType AbstractRqHandler::get_rq_type(const std::string& requ
     }
     return RqType::INVALID_RQ_TYPE;
 }
+
+AbstractRqHandler::RqType AbstractRqHandler::extract_rq_type_and_params(const std::string& full_input, std::string& params)
+{
+    auto pos = full_input.find(' ');
+    if (pos != full_input.npos)
+    {
+        RqType rq_type = get_rq_type(full_input.substr(0, pos));
+        params = full_input.substr(pos);
+        return rq_type;
+    }
+    else
+        throw ParamParsingException("extract_rq_type_and_params(): unable to find request name");
+}

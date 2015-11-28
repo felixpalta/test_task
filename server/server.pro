@@ -9,7 +9,8 @@ SOURCES += main.cpp \
     ledmanager.cpp \
     rgbled.cpp \
     ledserver.cpp \
-    fifopair.cpp
+    fifopair.cpp \
+    server.cpp
 
 HEADERS += \
     abstractrqhandler.h \
@@ -20,7 +21,9 @@ HEADERS += \
     iledmanager.h \
     ledserver.h \
     iblockingiochannel.h \
-    fifopair.h
+    fifopair.h \
+    iserver.h \
+    server.h
 
 *g++*{
 QMAKE_CXXFLAGS +=   -Weffc++ -std=c++11 -pedantic -Wall -Wextra \
