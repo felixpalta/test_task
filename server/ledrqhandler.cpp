@@ -9,6 +9,20 @@ LedRqHandler::LedRqHandler(std::shared_ptr<IRgbLed> led, std::ostream &err_strea
         throw std::invalid_argument("LedRgbHandler(): led ptr is null");
 }
 
+std::string LedRqHandler::strip(const std::string &params)
+{
+    auto params_begin = std::find_if(params.cbegin(), params.cend(), [](char c){return !std::isspace(c);});
+
+    // Assuming in current protocol we only have 1 parameter in the parameter list,
+    // we should check that there is no trailing whitespace after it.
+    auto params_end = std::find_if(params_begin, params.cend(), [](char c){return std::isspace(c);});
+
+    if (params_end != params.cend())
+        throw ParamParsingException("LedRqHandler::process_request(): parameter contains trailing characters: \"" + std::string(params_end, params.cend()) + "\"");
+
+    return std::string(params_begin, params_end);
+}
+
 std::string LedRqHandler::process_request(RqType rq_type, const std::string& params)
 {
     std::string retval;
@@ -20,13 +34,6 @@ std::string LedRqHandler::process_request(RqType rq_type, const std::string& par
 
     try
     {
-        // Assuming in current protocol we only have 1 parameter in the parameter list,
-        // we should check that there is no trailing whitespace after it.
-        auto params_end = std::find_if(params.cbegin(), params.cend(), [](char c){return std::isspace(c);});
-
-        if (params_end != params.cend())
-            throw ParamParsingException("LedRqHandler::process_request(): parameter contains trailing characters: \"" + std::string(params_end, params.cend()) + "\"");
-
         switch (rq_type)
         {
             case RqType::LED_GET_COLOR:
@@ -54,17 +61,17 @@ std::string LedRqHandler::process_request(RqType rq_type, const std::string& par
                 break;
 
             case RqType::LED_SET_COLOR:
-                result = m_rgb_led->set_color(get_color_value(params));
+                result = m_rgb_led->set_color(get_color_value(strip(params)));
                 retval = result ? get_ok_string() : get_failed_string();
                 break;
 
             case RqType::LED_SET_RATE:
-                result = m_rgb_led->set_rate(get_rate_value(params));
+                result = m_rgb_led->set_rate(get_rate_value(strip(params)));
                 retval = result ? get_ok_string() : get_failed_string();
                 break;
 
         case RqType::LED_SET_STATUS:
-                result = m_rgb_led->set_state(get_state_value(params));
+                result = m_rgb_led->set_state(get_state_value(strip(params)));
                 retval = result ? get_ok_string() : get_failed_string();
                 break;
 

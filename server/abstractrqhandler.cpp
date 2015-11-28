@@ -45,19 +45,7 @@ AbstractRqHandler::RqType AbstractRqHandler::extract_rq_type_and_params(const st
     // Parameter name is either full string or first substring, depending on pos.
     RqType rq_type = get_rq_type(rq_name);
 
-    // No characters are present after reqeust name.
-    if (rq_name_end == full_input.cend())
-        params = "";
-    else
-    {
-        auto param_list_begin = std::find_if(rq_name_end, full_input.cend(), not_space_f);
-
-        // Only whitespace characters are present after request name.
-        if (param_list_begin == full_input.cend())
-            params = "";
-        else
-            params = std::string(param_list_begin, full_input.cend());
-    }
+    params = std::string(rq_name_end, full_input.cend());
 
     return rq_type;
 }
