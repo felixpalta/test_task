@@ -21,16 +21,25 @@ std::string LedRqHandler::process_request(RqType rq_type, const std::string& par
         switch (rq_type)
         {
             case RqType::LED_GET_COLOR:
+                if (params.length() != 0)
+                    throw ParamParsingException("LedRqHandler::process_request(): trailing characters for this request are not allowed");
+
                 color = m_rgb_led->get_color();
                 retval = get_ok_with_result(get_color_name(color));
                 break;
 
             case RqType::LED_GET_RATE:
+                if (params.length() != 0)
+                    throw ParamParsingException("LedRqHandler::process_request(): trailing characters for this request are not allowed");
+
                 rate = m_rgb_led->get_rate();
                 retval = get_ok_with_result(std::to_string(rate));
                 break;
 
             case RqType::LED_GET_STATUS:
+                if (params.length() != 0)
+                    throw ParamParsingException("LedRqHandler::process_request(): trailing characters for this request are not allowed");
+
                 state = m_rgb_led->get_state();
                 retval = get_ok_with_result(get_state_name(state));
                 break;
