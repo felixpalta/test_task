@@ -6,9 +6,7 @@ CONFIG -= qt
 SOURCES += main.cpp \
     ledrqhandler.cpp \
     abstractrqhandler.cpp \
-    ledmanager.cpp \
     rgbled.cpp \
-    ledserver.cpp \
     fifopair.cpp \
     server.cpp
 
@@ -17,9 +15,7 @@ HEADERS += \
     ledrqhandler.h \
     rgbled.h \
     irgbled.h \
-    ledmanager.h \
     iledmanager.h \
-    ledserver.h \
     iblockingiochannel.h \
     fifopair.h \
     iserver.h \
