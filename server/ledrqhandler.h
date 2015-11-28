@@ -4,16 +4,18 @@
 #include "abstractrqhandler.h"
 #include "irgbled.h"
 #include <memory>
+#include <ostream>
 
 class LedRqHandler : public AbstractRqHandler
 {
 public:
-    LedRqHandler(std::shared_ptr<IRgbLed> led);
+    LedRqHandler(std::shared_ptr<IRgbLed> led, std::ostream& err_stream);
 
     virtual std::string process_request(RqType rq_type, const std::string& params) override;
 
 private:
     std::shared_ptr<IRgbLed> m_rgb_led;
+    std::ostream& m_err;
 
     static std::string get_ok_with_result(const std::string &result);
     static std::string get_ok_string();

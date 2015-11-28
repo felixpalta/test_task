@@ -1,7 +1,8 @@
 #include "ledrqhandler.h"
 
-LedRqHandler::LedRqHandler(std::shared_ptr<IRgbLed> led)
-    : m_rgb_led(led)
+LedRqHandler::LedRqHandler(std::shared_ptr<IRgbLed> led, std::ostream &err_stream)
+    : m_rgb_led(led),
+      m_err(err_stream)
 {
     if (!m_rgb_led)
         throw std::invalid_argument("LedRgbHandler(): led ptr is null");
@@ -64,15 +65,12 @@ std::string LedRqHandler::process_request(RqType rq_type, const std::string& par
                 break;
         }
     }
-    catch (IRgbLed::InternalException&)
+    catch (std::exception &e)
     {
         // TODO: Add internal exception logging.
         retval = get_failed_string();
-    }
-    catch (ParamParsingException&)
-    {
-        // TODO: Add parameters parsing exception logging.
-        retval = get_failed_string();
+
+        m_err << "LedRqHandler::process_request(): " << e.what() << '\n';
     }
 
     return retval;

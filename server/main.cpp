@@ -12,7 +12,7 @@ try
 
     auto led_ptr = make_shared<RgbLed>(cout);
 
-    auto led_handler = make_shared<LedRqHandler>(led_ptr);
+    auto led_handler = make_shared<LedRqHandler>(led_ptr, cerr);
 
     auto fifo_pair = make_shared<FifoPair>("input_pipe", "output_pipe");
 
