@@ -17,7 +17,8 @@ HEADERS += \
     irgbled.h \
     ledmanager.h \
     iledmanager.h \
-    ledserver.h
+    ledserver.h \
+    iblockingiochannel.h
 
 *g++*{
 QMAKE_CXXFLAGS +=   -Weffc++ -std=c++11 -pedantic -Wall -Wextra \
