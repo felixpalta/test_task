@@ -132,13 +132,23 @@ IRgbLed::LedState LedRqHandler::get_state_value(const std::string &s)
     throw ParamParsingException("Invalid LED state parameter");
 }
 
- IRgbLed::Rate LedRqHandler::get_rate_value(const std::string& s)
+IRgbLed::Rate LedRqHandler::get_rate_value(const std::string& s)
 {
     size_t sz = 0;
-    IRgbLed::Rate retval = std::stoi(s, &sz);
-    if (sz == 0)
-        throw ParamParsingException("Expected integer parameter");
-    if (sz < s.size())
-        throw ParamParsingException("Unexpected trailing characters after integer parameter");
-    return retval;
+    try
+    {
+        IRgbLed::Rate retval = std::stoi(s, &sz);
+        if (sz < s.size())
+            throw ParamParsingException("Unexpected trailing characters after integer parameter:\"" + s.substr(sz) + "\"");
+
+        return retval;
+    }
+    catch (std::invalid_argument& e)
+    {
+        throw ParamParsingException("LedRqHandler::get_rate_value(): Expected integer parameter");
+    }
+    catch (std::out_of_range& e)
+    {
+        throw ParamParsingException("LedRqHandler::get_rate_value(): integer parameter is too large");
+    }
 }
