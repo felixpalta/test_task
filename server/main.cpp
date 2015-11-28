@@ -1,7 +1,7 @@
 #include "rgbled.h"
-#include "ledmanager.h"
-#include "ledserver.h"
 #include "ledrqhandler.h"
+#include "fifopair.h"
+#include "server.h"
 #include <iostream>
 
 using namespace std;
@@ -10,18 +10,22 @@ int main()
 try
 {
 
-    RgbLed led(cout);
+    auto led_ptr = make_shared<RgbLed>(cout);
 
-    LedManager led_manager(led);
+    auto led_handler = make_shared<LedRqHandler>(led_ptr);
 
-    LedServer led_server("input_pipe", "output_pipe", led_manager);
+    auto fifo_pair = make_shared<FifoPair>("input_pipe", "output_pipe");
 
-    led_server.run();
+    Server server(cerr);
+
+    server.add(fifo_pair, led_handler);
+
+    server.run();
 
 }
 catch (exception &e)
 {
-    cerr << e.what() << '\n';
+    cerr << "main() exception: " << e.what() << '\n';
     return 1;
 }
 catch (...)

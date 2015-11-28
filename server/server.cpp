@@ -35,6 +35,6 @@ void Server::run()
     }
     catch (std::exception& e)
     {
-        m_err << e.what() << '\n';
+        m_err << "Server::run() exception: " << e.what() << '\n';
     }
 }
