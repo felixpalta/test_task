@@ -21,6 +21,9 @@ private:
     std::string m_input_pipe_name;
     std::string m_output_pipe_name;
 
+    bool file_exists(const std::string &file_name);
+    void remove_if_exists(const std::string &file_name);
+
     FifoPair(const FifoPair&) = delete;
     FifoPair& operator=(const FifoPair&) = delete;
 };

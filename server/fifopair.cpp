@@ -11,6 +11,9 @@ FifoPair::FifoPair(const std::string &input, const std::string &output)
     : m_input_pipe_name(input),
       m_output_pipe_name(output)
 {
+    remove_if_exists(input);
+    remove_if_exists(output);
+
     int status = mkfifo(m_input_pipe_name.c_str(), S_IRUSR | S_IWUSR);
     if (status)
         throw InternalException("Unable to create input FIFO");
@@ -46,6 +49,22 @@ void FifoPair::write_output_line_blocking(const std::string &out_s)
         throw InternalException("Unable to open output pipe for writing");
 
     ofs << out_s + '\n';
+}
+
+bool FifoPair::file_exists(const std::string &file_name)
+{
+    struct stat buf;
+    return stat(file_name.c_str(), &buf) == 0;
+}
+
+void FifoPair::remove_if_exists(const std::string &file_name)
+{
+    if (file_exists(file_name))
+    {
+        int status = remove(file_name.c_str());
+        if (status)
+            throw InternalException("File exists and cannot be removed: " + file_name);
+    }
 }
 
 FifoPair::~FifoPair()

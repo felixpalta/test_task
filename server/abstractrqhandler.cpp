@@ -22,13 +22,18 @@ AbstractRqHandler::RqType AbstractRqHandler::get_rq_type(const std::string& requ
 
 AbstractRqHandler::RqType AbstractRqHandler::extract_rq_type_and_params(const std::string& full_input, std::string& params)
 {
+    if (full_input.length() == 0)
+        throw ParamParsingException("extract_rq_type_and_params(): input string is empty");
+
     auto pos = full_input.find(' ');
-    if (pos != full_input.npos)
-    {
-        RqType rq_type = get_rq_type(full_input.substr(0, pos));
-        params = full_input.substr(pos);
-        return rq_type;
-    }
+
+    // Parameter name is either full string or first substring, depending on pos.
+    RqType rq_type = get_rq_type(full_input.substr(0, pos));
+
+    if (pos == full_input.npos)
+        params = "";
     else
-        throw ParamParsingException("extract_rq_type_and_params(): unable to find request name");
+        params = full_input.substr(pos + 1);
+
+    return rq_type;
 }
