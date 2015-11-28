@@ -25,6 +25,15 @@ public:
 
     static RqType get_rq_type(const std::string& request_name);
 
+    class ParamParsingException : public std::runtime_error
+    {
+    public:
+        ParamParsingException(const std::string &s)
+            : runtime_error("AbstractRqHandler::ParamParsingException: " + s)
+        {
+        }
+    };
+
 private:
 
     static const std::map<const std::string, RqType> name_to_rq_map;

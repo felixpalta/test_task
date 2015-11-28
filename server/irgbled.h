@@ -18,11 +18,11 @@ public:
     using LedState = bool;
     using Rate = int;
 
-    class IRgbLedInternalException : public std::runtime_error
+    class InternalException : public std::runtime_error
     {
     public:
-        IRgbLedInternalException(const std::string &msg)
-            : std::runtime_error("IRgbLedInternalException: " + msg)
+        InternalException(const std::string &msg)
+            : std::runtime_error("IRgbLed::InternalException: " + msg)
         {
         }
     };
