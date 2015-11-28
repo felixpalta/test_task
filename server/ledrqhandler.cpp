@@ -1,4 +1,5 @@
 #include "ledrqhandler.h"
+#include <algorithm>
 
 LedRqHandler::LedRqHandler(std::shared_ptr<IRgbLed> led, std::ostream &err_stream)
     : m_rgb_led(led),
@@ -19,11 +20,18 @@ std::string LedRqHandler::process_request(RqType rq_type, const std::string& par
 
     try
     {
+        // Assuming in current protocol we only have 1 parameter in the parameter list,
+        // we should check that there is no trailing whitespace after it.
+        auto params_end = std::find_if(params.cbegin(), params.cend(), [](char c){return std::isspace(c);});
+
+        if (params_end != params.cend())
+            throw ParamParsingException("LedRqHandler::process_request(): parameter contains trailing characters: \"" + std::string(params_end, params.cend()) + "\"");
+
         switch (rq_type)
         {
             case RqType::LED_GET_COLOR:
                 if (params.length() != 0)
-                    throw ParamParsingException("LedRqHandler::process_request(): trailing characters for this request are not allowed");
+                    throw ParamParsingException("LedRqHandler::process_request(): parameters or trailing whitespace are not allowed for this request");
 
                 color = m_rgb_led->get_color();
                 retval = get_ok_with_result(get_color_name(color));
@@ -61,6 +69,7 @@ std::string LedRqHandler::process_request(RqType rq_type, const std::string& par
                 break;
 
             default:
+                m_err << "LedRqHandler::process_request(): Invalid request type" << '\n';
                 retval = get_failed_string();
                 break;
         }
@@ -115,7 +124,7 @@ IRgbLed::Color LedRqHandler::get_color_value(const std::string &s)
     if (s == "blue")
         return IRgbLed::Color::BLUE;
 
-    return IRgbLed::Color::INVALID_COLOR;
+    throw ParamParsingException("LedRqHandler::get_color_value(): Invalid LED color parameter");
 }
 
 std::string LedRqHandler::get_state_name(IRgbLed::LedState state)
@@ -129,7 +138,7 @@ IRgbLed::LedState LedRqHandler::get_state_value(const std::string &s)
         return true;
     if (s == "off")
         return false;
-    throw ParamParsingException("Invalid LED state parameter");
+    throw ParamParsingException("LedRqHandler::get_state_value(): Invalid LED state parameter");
 }
 
 IRgbLed::Rate LedRqHandler::get_rate_value(const std::string& s)
