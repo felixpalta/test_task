@@ -1,4 +1,6 @@
 #include "abstractrqhandler.h"
+#include <algorithm>
+#include <functional>
 
 const std::map<const std::string, AbstractRqHandler::RqType> AbstractRqHandler::name_to_rq_map =
 {
@@ -25,15 +27,37 @@ AbstractRqHandler::RqType AbstractRqHandler::extract_rq_type_and_params(const st
     if (full_input.length() == 0)
         throw ParamParsingException("extract_rq_type_and_params(): input string is empty");
 
-    auto pos = full_input.find(' ');
+    auto not_space_f = [](char c){return !std::isspace(c);};
+
+    auto is_space_f = [](char c){return std::isspace(c);};
+
+    // Find first non-whitespace character.
+    auto rq_name_begin = std::find_if(full_input.cbegin(), full_input.cend(), not_space_f);
+
+    if (rq_name_begin == full_input.cend())
+        throw ParamParsingException("extract_rq_type_and_params(): request name not found");
+
+    // Read request name until end of full_input or until first whitespace character;
+    auto rq_name_end = std::find_if(rq_name_begin, full_input.cend(), is_space_f);
+
+    auto rq_name = std::string(rq_name_begin, rq_name_end);
 
     // Parameter name is either full string or first substring, depending on pos.
-    RqType rq_type = get_rq_type(full_input.substr(0, pos));
+    RqType rq_type = get_rq_type(rq_name);
 
-    if (pos == full_input.npos)
+    // No characters are present after reqeust name.
+    if (rq_name_end == full_input.cend())
         params = "";
     else
-        params = full_input.substr(pos + 1);
+    {
+        auto param_list_begin = std::find_if(rq_name_end, full_input.cend(), not_space_f);
+
+        // Only whitespace characters are present after request name.
+        if (param_list_begin == full_input.cend())
+            params = "";
+        else
+            params = std::string(param_list_begin, full_input.cend());
+    }
 
     return rq_type;
 }
