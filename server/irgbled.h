@@ -22,22 +22,22 @@ public:
     {
     public:
         InternalException(const std::string &msg)
-            : std::runtime_error("IRgbLed::InternalException: " + msg)
+            : std::runtime_error("IRgbLed: " + msg)
         {
         }
     };
 
     /**
-     * @return false in case of invalid parameters.
-     * @throw IRgbLedInternalException in case of internal error.
+     * @throw InternalException in case of internal error.
+     * @throw std::invalid_argument
      */
-    virtual bool set_state(LedState state) = 0;
-    virtual bool set_color(Color color) = 0;
-    virtual bool set_rate(Rate rate) = 0;
+    virtual void set_state(LedState state) = 0;
+    virtual void set_color(Color color) = 0;
+    virtual void set_rate(Rate rate) = 0;
 
 
     /**
-     * @throw IRgbLedInternalException in case of internal error.
+     * @throw InternalException in case of internal error.
      */
     virtual LedState get_state() const = 0;
     virtual Color get_color() const = 0;

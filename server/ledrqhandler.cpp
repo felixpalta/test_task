@@ -27,7 +27,6 @@ std::string LedRqHandler::process_rq(RqType rq_type, const std::string& params)
 {
     std::string retval;
 
-    bool result;
     IRgbLed::Color color;
     IRgbLed::Rate rate;
     IRgbLed::LedState state;
@@ -61,18 +60,18 @@ std::string LedRqHandler::process_rq(RqType rq_type, const std::string& params)
                 break;
 
             case RqType::LED_SET_COLOR:
-                result = m_rgb_led->set_color(get_color_value(strip(params)));
-                retval = result ? get_ok_string() : get_failed_string();
+                m_rgb_led->set_color(get_color_value(strip(params)));
+                retval = get_ok_string();
                 break;
 
             case RqType::LED_SET_RATE:
-                result = m_rgb_led->set_rate(get_rate_value(strip(params)));
-                retval = result ? get_ok_string() : get_failed_string();
+                 m_rgb_led->set_rate(get_rate_value(strip(params)));
+                retval = get_ok_string();
                 break;
 
         case RqType::LED_SET_STATUS:
-                result = m_rgb_led->set_state(get_state_value(strip(params)));
-                retval = result ? get_ok_string() : get_failed_string();
+                m_rgb_led->set_state(get_state_value(strip(params)));
+                retval = get_ok_string();
                 break;
 
             default:

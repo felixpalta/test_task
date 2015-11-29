@@ -13,34 +13,30 @@ RgbLed::RgbLed(ostream &out,
 {
 }
 
-bool RgbLed::set_state(LedState state)
+void RgbLed::set_state(LedState state)
 {
     m_state = state;
 
     m_out << "RGB Led state set: " << boolalpha << state << '\n';
-
-    return true;
 }
 
-bool RgbLed::set_color(Color color)
+void RgbLed::set_color(Color color)
 {
 
     if (!is_valid_color(int(color)))
-        return false;
+        throw std::invalid_argument("RgbLed::set_color(): invalid color");
 
     m_color = color;
     m_out << "RGB Led color set: " << get_color_name(color) << '\n';
-    return true;
 }
 
-bool RgbLed::set_rate(int rate)
+void RgbLed::set_rate(int rate)
 {
     if (!is_valid_rate(rate))
-        return false;
+        throw std::invalid_argument("RgbLed::set_rate(): invalid rate");
 
     m_rate = rate;
     m_out << "RGB Led rate set: " << rate << '\n';
-    return true;
 }
 
 RgbLed::LedState RgbLed::get_state() const
