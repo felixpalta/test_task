@@ -3,6 +3,7 @@
 
 #include <string>
 #include <stdexcept>
+#include <functional>
 
 class IRqHandler
 {
@@ -11,14 +12,26 @@ public:
     class ParamParsingException : public std::runtime_error
     {
     public:
-        ParamParsingException(const std::string &s)
-            : runtime_error("IRqHandler::ParamParsingException: " + s)
-        {
-        }
+        ParamParsingException(const std::string &msg)
+            : runtime_error("IRqHandler: " + msg) {}
     };
+
+    class InternalError : public std::runtime_error
+    {
+    public:
+        InternalError(const std::string& msg)
+            : runtime_error("IRqHandler: " + msg) {}
+    };
+
+    using Handler = std::function<std::string(const std::string&)>;
+
+    virtual void add_handler(const std::string &rq_name, Handler h) = 0;
 
     virtual std::string process_request(const std::string& input) = 0;
     virtual ~IRqHandler() = default;
+
+private:
+    virtual Handler get_handler(const std::string &rq_name) const = 0;
 };
 
 #endif // IRQHANDLER_H

@@ -2,10 +2,25 @@
 #include <algorithm>
 #include <ostream>
 
-RqHandler::RqHandler(HandlerSetPtr handler_set_ptr, std::ostream &err_stream)
-    : m_handler_set(handler_set_ptr),
+RqHandler::RqHandler(std::ostream &err_stream)
+    : m_rq_handlers(),
       m_err(err_stream)
 {
+}
+
+void RqHandler::add_handler(const std::string &rq_name, Handler h)
+{
+    m_rq_handlers[rq_name] = h;
+}
+
+IRqHandler::Handler RqHandler::get_handler(const std::string &rq_name) const
+{
+    auto iter = m_rq_handlers.find(rq_name);
+    if (iter != m_rq_handlers.end())
+    {
+        return iter->second;
+    }
+    throw InternalError("RqHandler::get_handler(): not found: " + rq_name);
 }
 
 std::string RqHandler::process_request(const std::string& input)
@@ -14,7 +29,7 @@ try
     std::string params;
     std::string rq_name = extract_rq_name_and_params(input, params);
 
-    auto handler = m_handler_set->get_handler(rq_name);
+    auto handler = get_handler(rq_name);
 
     std::string result = handler(params);
 

@@ -7,7 +7,6 @@ SOURCES += main.cpp \
     rgbled.cpp \
     fifopair.cpp \
     server.cpp \
-    rqhandlerset.cpp \
     rqhandler.cpp \
     ledprotocolhelper.cpp
 
@@ -19,8 +18,6 @@ HEADERS += \
     iserver.h \
     server.h \
     irqhandler.h \
-    irqhandlerset.h \
-    rqhandlerset.h \
     rqhandler.h \
     ledprotocolhelper.h
 
