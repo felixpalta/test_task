@@ -4,9 +4,7 @@ Server::Server(std::ostream& err_stream)
     : m_err(err_stream),
       m_channel_handler_pair()
 {
-
 }
-
 
 void Server::add(IOPtr io_channel, RqProcessorPtr handler)
 {

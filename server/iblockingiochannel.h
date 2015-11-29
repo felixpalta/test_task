@@ -7,7 +7,6 @@
 class IBlockingIOChannel
 {
 public:
-
     class InternalException : public std::runtime_error
     {
     public:

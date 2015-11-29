@@ -6,7 +6,6 @@
 class IRgbLed
 {
 public:
-
     enum class Color
     {
         INVALID_COLOR,

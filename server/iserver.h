@@ -9,7 +9,6 @@
 class IServer
 {
 public:
-
     class InternalError : public std::runtime_error
     {
     public:

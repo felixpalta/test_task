@@ -8,7 +8,6 @@
 class IRqProcessor
 {
 public:
-
     class ParamParsingException : public std::runtime_error
     {
     public:

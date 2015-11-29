@@ -14,12 +14,12 @@ void RqProcessor::add_handler(const std::string &rq_name, Handler h)
 }
 
 IRqProcessor::Handler RqProcessor::get_handler(const std::string &rq_name) const
+try
 {
-    auto iter = m_rq_handlers.find(rq_name);
-    if (iter != m_rq_handlers.end())
-    {
-        return iter->second;
-    }
+    return m_rq_handlers.at(rq_name);
+}
+catch (std::out_of_range&)
+{
     throw InternalError("RqProcessor::get_handler(): not found: " + rq_name);
 }
 

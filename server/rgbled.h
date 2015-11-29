@@ -8,7 +8,6 @@
 class RgbLed : public IRgbLed
 {
 public:
-
     RgbLed(std::ostream &out,
            LedState start_state = false,
            Color start_color = DEFAULT_COLOR,
@@ -26,7 +25,6 @@ public:
 
 private:
     std::ostream &m_out;
-
     LedState m_state;
     Color m_color;
     Rate m_rate;

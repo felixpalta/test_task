@@ -131,7 +131,6 @@ IRgbLed::Rate LedProtocolHelper::get_rate_value(const std::string& rate_string)
     return retval;
 }
 
-
 std::string LedProtocolHelper::get_rate_string(IRgbLed::Rate rate_value)
 {
     return std::to_string(rate_value);

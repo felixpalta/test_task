@@ -7,7 +7,6 @@
 class FifoPair : public IBlockingIOChannel
 {
 public:
-
     FifoPair(const std::string &input, const std::string &output);
 
     std::string read_input_line_blocking() override;
@@ -17,7 +16,6 @@ public:
     ~FifoPair();
 
 private:
-
     std::string m_input_pipe_name;
     std::string m_output_pipe_name;
 

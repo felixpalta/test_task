@@ -10,7 +10,6 @@
 class LedProtocolHelper
 {
 public:
-
     using LedPtr = std::shared_ptr<IRgbLed>;
 
     LedProtocolHelper(LedPtr led_ptr);
