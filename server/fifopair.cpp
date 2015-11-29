@@ -31,7 +31,6 @@ FifoPair::FifoPair(const std::string &input, const std::string &output)
 std::string FifoPair::read_input_line_blocking()
 {
     int input_pipe_desc =  open(m_input_pipe_name.c_str(), O_RDONLY);
-
     if (input_pipe_desc < 0)
         throw InternalException("Unable to open input pipe for reading: " + std::string(strerror(errno)));
 
@@ -57,14 +56,22 @@ std::string FifoPair::read_input_line_blocking()
 
 void FifoPair::write_output_line_blocking(const std::string &out_s)
 {
-    // Blocks until this pipe is open for reading
-    // on the other end.
-    std::ofstream ofs(m_output_pipe_name.c_str());
+    int output_pipe_desc = open(m_output_pipe_name.c_str(), O_WRONLY);
+    if (output_pipe_desc < 0)
+        throw InternalException("Unable to open output pipe for writing: " + std::string(strerror(errno)));
 
-    if (!ofs)
-        throw InternalException("Unable to open output pipe for writing");
+    std::string out_buf = out_s + '\n';
 
-    ofs << out_s << std::endl;
+    ssize_t n = write(output_pipe_desc, out_s.c_str(), out_buf.length());
+    if (n < 0)
+        throw InternalException("write(output_pipe_desc): " + std::string(strerror(errno)));
+    if (size_t(n) < out_buf.length())
+        throw InternalException("unable to write full buffer using write(output_pipe_desc)");
+
+    if (close(output_pipe_desc) != 0)
+    {
+        throw InternalException("close(output_pipe_desc) error: " + std::string(strerror(errno)));
+    }
 }
 
 bool FifoPair::file_exists(const std::string &file_name)
