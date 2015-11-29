@@ -29,19 +29,15 @@ int main()
 try
 {
     auto led = make_shared<RgbLed>(cout);
-
     auto led_protocol_helper = make_shared<LedProtocolHelper>(led);
 
     RqProcessorPtr rq_processor = make_shared<RqProcessor>(cerr);
-
     add_led_handlers(rq_processor, led_protocol_helper);
 
     auto fifo_pair = make_shared<FifoPair>("input_pipe", "output_pipe");
 
     Server server(cerr);
-
     server.add(fifo_pair, rq_processor);
-
     server.run();
 }
 catch (exception &e)
