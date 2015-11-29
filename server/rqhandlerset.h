@@ -10,7 +10,7 @@ public:
     RqHandlerSet() = default;
 
     void add_handler(const std::string &rq_name, Handler h) override;
-    Handler get_handler(const std::string &rq_name) override;
+    Handler get_handler(const std::string &rq_name) const override;
 
 private:
     std::map<const std::string, Handler> m_rq_handlers;

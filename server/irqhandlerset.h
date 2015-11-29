@@ -13,11 +13,11 @@ public:
     {
     public:
         InternalError(const std::string& msg)
-            : runtime_error("IrqHandlerSet::InternalError: " + msg) {}
+            : runtime_error("IrqHandlerSet: " + msg) {}
     };
 
     virtual void add_handler(const std::string &rq_name, Handler h) = 0;
-    virtual Handler get_handler(const std::string &rq_name) = 0;
+    virtual Handler get_handler(const std::string &rq_name) const = 0;
     virtual ~IRqHandlerSet() = default;
 };
 
