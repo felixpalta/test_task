@@ -10,9 +10,9 @@ CXXFLAGS=-c -Wall -Wextra -Weffc++ -std=c++11 -pedantic \
 
 LDFLAGS=
 SOURCES=$(wildcard *.cpp)
-BINDIR=bin
-OBJDIR=obj
-OBJECTS=$(OBJDIR)/args.o $(OBJDIR)/fifopair.o $(OBJDIR)/ledprotocolhelper.o $(OBJDIR)/main.o $(OBJDIR)/rgbled.o $(OBJDIR)/rqprocessor.o $(OBJDIR)/server.o
+BINDIR=$(BIN_DIR)
+OBJDIR=$(OBJ_DIR)
+OBJECTS := $(addprefix $(OBJDIR)/,$(notdir $(SOURCES:.cpp=.o)))
 TARGET=$(BINDIR)/server
 
 all: $(SOURCES) $(TARGET)
@@ -27,5 +27,5 @@ $(OBJECTS): $(OBJDIR)/%.o: %.cpp
 #	$(CXX) $(CXXFLAGS) $< -o $@
 
 clean:
-	rm -rf $(OBJDIR)/$(OBJECTS) $(BINDIR)/$(TARGET)
+	rm -rf $(OBJECTS) $(TARGET)
 
