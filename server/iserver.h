@@ -4,6 +4,7 @@
 #include "irqprocessor.h"
 #include "iblockingiochannel.h"
 #include <memory>
+#include <string>
 #include <stdexcept>
 
 class IServer

@@ -1,6 +1,7 @@
 #ifndef IRGBLED_H
 #define IRGBLED_H
 
+#include <string>
 #include <stdexcept>
 
 class IRgbLed

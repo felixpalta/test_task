@@ -1,6 +1,7 @@
 #ifndef ARGS_H
 #define ARGS_H
 
+#include <string>
 #include <stdexcept>
 
 class Args
