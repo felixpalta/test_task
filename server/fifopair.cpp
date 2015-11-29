@@ -34,7 +34,16 @@ std::string FifoPair::read_input_line_blocking()
 
     std::string input_buf;
 
-    std::getline(ifs, input_buf);
+    while(true)
+    {
+          if (std::getline(ifs, input_buf))
+          {
+              if (!input_buf.empty())
+                  break;
+          }
+          else
+              ifs.clear();
+    }
 
     return input_buf;
 }
@@ -48,7 +57,7 @@ void FifoPair::write_output_line_blocking(const std::string &out_s)
     if (!ofs)
         throw InternalException("Unable to open output pipe for writing");
 
-    ofs << out_s + '\n';
+    ofs << out_s << std::endl;
 }
 
 bool FifoPair::file_exists(const std::string &file_name)

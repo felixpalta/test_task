@@ -92,7 +92,8 @@ case "$REQUEST" in
 *) print_error "Invalid request type"; print_usage; exit $FAIL;;
 esac
 
-echo "$INTERNAL_COMMAND" > "$PIPE_TO_SERVER" && REPLY=`cat $PIPE_FROM_SERVER`
+# Send request as background job and block until reply is received.
+echo "$INTERNAL_COMMAND" > "$PIPE_TO_SERVER" & REPLY=`cat $PIPE_FROM_SERVER`
 
 REPLY_ARR=($REPLY)
 
