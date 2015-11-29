@@ -2,19 +2,27 @@
 #define SERVER_H
 
 #include "iserver.h"
-#include <utility>
+#include "irqprocessor.h"
+#include <vector>
 #include <ostream>
+#include <thread>
+#include <future>
+#include <functional>
 
 class Server : public IServer
 {
 public:
-    Server(std::ostream& err_stream);
-    void add(IOPtr io_channel, RqProcessorPtr handler) override;
+    using RqProcessorPtr = std::shared_ptr<IRqProcessor>;
+
+    Server(std::ostream& err_stream, RqProcessorPtr rq_processor);
+    void add(IOPtr io_channel) override;
     void run() override;
 
 private:
     std::ostream& m_err;
-    std::pair<IOPtr, RqProcessorPtr> m_channel_handler_pair;
+    RqProcessorPtr m_rq_processor;
+    using Task = std::function<void(void)>;
+    std::vector<std::future<void>> m_futures;
 };
 
 #endif // SERVER_H

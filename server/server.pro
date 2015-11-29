@@ -2,6 +2,7 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
+CONFIG += thread
 
 SOURCES += main.cpp \
     rgbled.cpp \
@@ -21,7 +22,8 @@ HEADERS += \
     ledprotocolhelper.h \
     rqprocessor.h \
     irqprocessor.h \
-    args.h
+    args.h \
+    clientproducer.h
 
 *g++*{
 QMAKE_CXXFLAGS +=   -Weffc++ -std=c++11 -pedantic -Wall -Wextra \

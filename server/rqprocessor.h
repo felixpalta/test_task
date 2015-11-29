@@ -10,7 +10,7 @@ class RqProcessor : public IRqProcessor
 public:
     RqProcessor(std::ostream &err_stream);
 
-    std::string process_request(const std::string& input) override;
+    std::string process_request(const std::string& input) const override;
 
     void add_handler(const std::string &rq_name, Handler h) override;
 

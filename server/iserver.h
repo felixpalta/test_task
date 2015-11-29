@@ -1,7 +1,6 @@
 #ifndef ISERVER_H
 #define ISERVER_H
 
-#include "irqprocessor.h"
 #include "iblockingiochannel.h"
 #include <memory>
 #include <string>
@@ -18,9 +17,8 @@ public:
     };
 
     using IOPtr = std::shared_ptr<IBlockingIOChannel>;
-    using RqProcessorPtr = std::shared_ptr<IRqProcessor>;
 
-    virtual void add(IOPtr io_channel, RqProcessorPtr handler) = 0;
+    virtual void add(IOPtr io_channel) = 0;
     virtual void run() = 0;
 
     virtual ~IServer() = default;

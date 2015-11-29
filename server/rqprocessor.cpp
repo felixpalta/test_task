@@ -23,7 +23,7 @@ catch (std::out_of_range&)
     throw InternalError("RqProcessor::get_handler(): not found: " + rq_name);
 }
 
-std::string RqProcessor::process_request(const std::string& input)
+std::string RqProcessor::process_request(const std::string& input) const
 try
 {
     std::string params;

@@ -26,7 +26,7 @@ public:
 
     virtual void add_handler(const std::string &rq_name, Handler h) = 0;
 
-    virtual std::string process_request(const std::string& input) = 0;
+    virtual std::string process_request(const std::string& input) const = 0;
     virtual ~IRqProcessor() = default;
 
 private:

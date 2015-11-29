@@ -44,8 +44,8 @@ try
 
     auto fifo_pair = make_shared<FifoPair>(args.input_pipe_name(), args.output_pipe_name());
 
-    Server server(cerr);
-    server.add(fifo_pair, rq_processor);
+    Server server(cerr, rq_processor);
+    server.add(fifo_pair);
     server.run();
 }
 catch (Args::InvalidArgs& e)
