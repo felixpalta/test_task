@@ -12,9 +12,7 @@ public:
     {
     public:
         InternalException(const std::string &msg)
-            : runtime_error("IBlockingIOChannel::InternalException: " + msg)
-        {
-        }
+            : runtime_error("IBlockingIOChannel::InternalException: " + msg){}
     };
 
     /**

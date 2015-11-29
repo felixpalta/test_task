@@ -99,14 +99,12 @@ IRgbLed::LedState LedProtocolHelper::get_state_value(const std::string& state_na
 
 std::string LedProtocolHelper::get_state_name(IRgbLed::LedState led_state)
 {
+    for (auto& x : m_state_names)
     {
-        for (auto& x : m_state_names)
-        {
-            if (x.first == led_state)
-                return x.second;
-        }
-        throw std::invalid_argument("LedProtocolHelper::get_state_name(): invalid value");
+        if (x.first == led_state)
+            return x.second;
     }
+    throw std::invalid_argument("LedProtocolHelper::get_state_name(): invalid value");
 }
 
 IRgbLed::Rate LedProtocolHelper::get_rate_value(const std::string& rate_string)

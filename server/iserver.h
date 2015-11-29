@@ -14,9 +14,7 @@ public:
     {
     public:
         InternalError(const std::string& msg)
-            : runtime_error("IServer::InternalError: " + msg)
-        {
-        }
+            : runtime_error("IServer::InternalError: " + msg){}
     };
 
     using IOPtr = std::shared_ptr<IBlockingIOChannel>;

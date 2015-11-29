@@ -22,9 +22,7 @@ public:
     {
     public:
         InternalException(const std::string &msg)
-            : std::runtime_error("IRgbLed: " + msg)
-        {
-        }
+            : std::runtime_error("IRgbLed: " + msg){}
     };
 
     /**
