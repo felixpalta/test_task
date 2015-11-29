@@ -8,7 +8,8 @@ SOURCES += main.cpp \
     abstractrqhandler.cpp \
     rgbled.cpp \
     fifopair.cpp \
-    server.cpp
+    server.cpp \
+    rqhandlerset.cpp
 
 HEADERS += \
     abstractrqhandler.h \
@@ -20,7 +21,8 @@ HEADERS += \
     iserver.h \
     server.h \
     irqhandler.h \
-    irqhandlerset.h
+    irqhandlerset.h \
+    rqhandlerset.h
 
 *g++*{
 QMAKE_CXXFLAGS +=   -Weffc++ -std=c++11 -pedantic -Wall -Wextra \

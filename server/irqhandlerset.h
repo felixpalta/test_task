@@ -7,11 +7,18 @@
 class IRqHandlerSet
 {
 public:
-    using Handler = std::function<std::string(std::string)>;
+    using Handler = std::function<std::string(const std::string&)>;
 
-    virtual void add_handler(std::string rq_name, Handler h) = 0;
-    Handler get_handler(std::string rq_name) = 0;
-    virtual ~IRqHandlerSet();
+    class InternalError : public std::runtime_error
+    {
+    public:
+        InternalError(const std::string& msg)
+            : runtime_error("IrqHandlerSet::InternalError: " + msg) {}
+    };
+
+    virtual void add_handler(const std::string &rq_name, Handler h) = 0;
+    virtual Handler get_handler(const std::string &rq_name) = 0;
+    virtual ~IRqHandlerSet() = default;
 };
 
 #endif // IRQHANDLERSET_H
