@@ -65,16 +65,3 @@ std::string RqHandler::extract_rq_name_and_params(const std::string& full_input,
 
     return rq_name;
 }
-
-// Skip leading whitespace in parameter list and check that there is only 1 parameter in the list.
-std::string RqHandler::strip_single_parameter(const std::string &params)
-{
-    auto params_begin = std::find_if(params.cbegin(), params.cend(), [](char c){return !std::isspace(c);});
-
-    auto params_end = std::find_if(params_begin, params.cend(), [](char c){return std::isspace(c);});
-
-    if (params_end != params.cend())
-        throw ParamParsingException("RqHandler::strip_single_parameter(): parameter contains trailing characters: \"" + std::string(params_end, params.cend()) + "\"");
-
-    return std::string(params_begin, params_end);
-}

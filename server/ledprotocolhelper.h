@@ -40,7 +40,7 @@ private:
     static IRgbLed::Rate get_rate_value(const std::string& rate_string);
     static std::string get_rate_string(IRgbLed::Rate rate_value);
 
-
+    static std::string strip_single_parameter(const std::string &params);
 };
 
 #endif // LEDPROTOCOLHELPER_H

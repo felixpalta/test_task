@@ -24,8 +24,6 @@ private:
     static std::string get_ok_with_result(const std::string &result);
     static std::string get_ok_string();
     static std::string get_failed_string();
-
-    static std::string strip_single_parameter(const std::string &params);
 };
 
 #endif // RQHANDLER_H
