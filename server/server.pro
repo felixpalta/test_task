@@ -7,8 +7,8 @@ SOURCES += main.cpp \
     rgbled.cpp \
     fifopair.cpp \
     server.cpp \
-    rqhandler.cpp \
-    ledprotocolhelper.cpp
+    ledprotocolhelper.cpp \
+    rqprocessor.cpp
 
 HEADERS += \
     rgbled.h \
@@ -17,9 +17,9 @@ HEADERS += \
     fifopair.h \
     iserver.h \
     server.h \
-    irqhandler.h \
-    rqhandler.h \
-    ledprotocolhelper.h
+    ledprotocolhelper.h \
+    rqprocessor.h \
+    irqprocessor.h
 
 *g++*{
 QMAKE_CXXFLAGS +=   -Weffc++ -std=c++11 -pedantic -Wall -Wextra \

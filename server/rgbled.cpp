@@ -1,8 +1,6 @@
 #include "rgbled.h"
 
-using namespace std;
-
-RgbLed::RgbLed(ostream &out,
+RgbLed::RgbLed(std::ostream &out,
                LedState start_state,
                Color start_color,
                Rate start_rate)
@@ -17,7 +15,7 @@ void RgbLed::set_state(LedState state)
 {
     m_state = state;
 
-    m_out << "RGB Led state set: " << boolalpha << state << '\n';
+    m_out << "RGB Led state set: " << std::boolalpha << state << '\n';
 }
 
 void RgbLed::set_color(Color color)

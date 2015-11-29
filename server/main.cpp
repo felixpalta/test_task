@@ -2,22 +2,27 @@
 #include "fifopair.h"
 #include "server.h"
 #include "ledprotocolhelper.h"
-#include "rqhandler.h"
+#include "rqprocessor.h"
 #include <iostream>
 
-using namespace std;
+using std::shared_ptr;
+using std::make_shared;
+using std::cout;
+using std::cerr;
+using std::exception;
+using std::string;
 
-using RqProcessorPtr = std::shared_ptr<IRqProcessor>;
-using LedHelperPtr = std::shared_ptr<LedProtocolHelper>;
+using RqProcessorPtr = shared_ptr<IRqProcessor>;
+using LedHelperPtr = shared_ptr<LedProtocolHelper>;
 
 static void add_led_handlers(RqProcessorPtr rq_processor, LedHelperPtr led_helper)
 {
-    rq_processor->add_handler("get-led-color", [led_helper](const std::string& params) { return led_helper->get_color(params); });
-    rq_processor->add_handler("set-led-color", [led_helper](const std::string& params) { return led_helper->set_color(params); });
-    rq_processor->add_handler("get-led-rate", [led_helper](const std::string& params) { return led_helper->get_rate(params); });
-    rq_processor->add_handler("set-led-rate", [led_helper](const std::string& params) { return led_helper->set_rate(params); });
-    rq_processor->add_handler("get-led-state", [led_helper](const std::string& params) { return led_helper->get_state(params); });
-    rq_processor->add_handler("set-led-state", [led_helper](const std::string& params) { return led_helper->set_state(params); });
+    rq_processor->add_handler("get-led-color", [led_helper](const string& params) { return led_helper->get_color(params); });
+    rq_processor->add_handler("set-led-color", [led_helper](const string& params) { return led_helper->set_color(params); });
+    rq_processor->add_handler("get-led-rate", [led_helper](const string& params) { return led_helper->get_rate(params); });
+    rq_processor->add_handler("set-led-rate", [led_helper](const string& params) { return led_helper->set_rate(params); });
+    rq_processor->add_handler("get-led-state", [led_helper](const string& params) { return led_helper->get_state(params); });
+    rq_processor->add_handler("set-led-state", [led_helper](const string& params) { return led_helper->set_state(params); });
 }
 
 int main()

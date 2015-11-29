@@ -1,7 +1,7 @@
 #ifndef ISERVER_H
 #define ISERVER_H
 
-#include "irqhandler.h"
+#include "irqprocessor.h"
 #include "iblockingiochannel.h"
 #include <memory>
 #include <stdexcept>

@@ -1,7 +1,7 @@
-#ifndef RQHANDLER_H
-#define RQHANDLER_H
+#ifndef RQPROCESSOR_H
+#define RQPROCESSOR_H
 
-#include "irqhandler.h"
+#include "irqprocessor.h"
 #include <memory>
 #include <map>
 
@@ -30,4 +30,4 @@ private:
 
 };
 
-#endif // RQHANDLER_H
+#endif // RQPROCESSOR_H

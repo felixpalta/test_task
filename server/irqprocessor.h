@@ -1,5 +1,5 @@
-#ifndef IRQHANDLER_H
-#define IRQHANDLER_H
+#ifndef IRQPROCESSOR_H
+#define IRQPROCESSOR_H
 
 #include <string>
 #include <stdexcept>
@@ -34,4 +34,4 @@ private:
     virtual Handler get_handler(const std::string &rq_name) const = 0;
 };
 
-#endif // IRQHANDLER_H
+#endif // IRQPROCESSOR_H
