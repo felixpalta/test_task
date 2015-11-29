@@ -8,7 +8,7 @@ Server::Server(std::ostream& err_stream)
 }
 
 
-void Server::add(IOPtr io_channel, RqHandlerPtr handler)
+void Server::add(IOPtr io_channel, RqProcessorPtr handler)
 {
     m_channel_handler_pair.first = io_channel;
     m_channel_handler_pair.second = handler;

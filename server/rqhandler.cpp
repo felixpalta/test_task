@@ -2,28 +2,28 @@
 #include <algorithm>
 #include <ostream>
 
-RqHandler::RqHandler(std::ostream &err_stream)
+RqProcessor::RqProcessor(std::ostream &err_stream)
     : m_rq_handlers(),
       m_err(err_stream)
 {
 }
 
-void RqHandler::add_handler(const std::string &rq_name, Handler h)
+void RqProcessor::add_handler(const std::string &rq_name, Handler h)
 {
     m_rq_handlers[rq_name] = h;
 }
 
-IRqHandler::Handler RqHandler::get_handler(const std::string &rq_name) const
+IRqProcessor::Handler RqProcessor::get_handler(const std::string &rq_name) const
 {
     auto iter = m_rq_handlers.find(rq_name);
     if (iter != m_rq_handlers.end())
     {
         return iter->second;
     }
-    throw InternalError("RqHandler::get_handler(): not found: " + rq_name);
+    throw InternalError("RqProcessor::get_handler(): not found: " + rq_name);
 }
 
-std::string RqHandler::process_request(const std::string& input)
+std::string RqProcessor::process_request(const std::string& input)
 try
 {
     std::string params;
@@ -41,22 +41,22 @@ catch (std::exception& e)
     return get_failed_string();
 }
 
-std::string RqHandler::get_failed_string()
+std::string RqProcessor::get_failed_string()
 {
     return "FAILED";
 }
 
-std::string RqHandler::get_ok_string()
+std::string RqProcessor::get_ok_string()
 {
     return "OK";
 }
 
-std::string RqHandler::get_ok_with_result(const std::string& result)
+std::string RqProcessor::get_ok_with_result(const std::string& result)
 {
     return std::string("OK " + result);
 }
 
-std::string RqHandler::extract_rq_name_and_params(const std::string& full_input, std::string& params)
+std::string RqProcessor::extract_rq_name_and_params(const std::string& full_input, std::string& params)
 {
     if (full_input.length() == 0)
         throw ParamParsingException("extract_rq_name_and_params(): input string is empty");

@@ -20,9 +20,9 @@ public:
     };
 
     using IOPtr = std::shared_ptr<IBlockingIOChannel>;
-    using RqHandlerPtr = std::shared_ptr<IRqHandler>;
+    using RqProcessorPtr = std::shared_ptr<IRqProcessor>;
 
-    virtual void add(IOPtr io_channel, RqHandlerPtr handler) = 0;
+    virtual void add(IOPtr io_channel, RqProcessorPtr handler) = 0;
     virtual void run() = 0;
 
     virtual ~IServer() = default;

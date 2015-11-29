@@ -9,12 +9,12 @@ class Server : public IServer
 {
 public:
     Server(std::ostream& err_stream);
-    void add(IOPtr io_channel, RqHandlerPtr handler) override;
+    void add(IOPtr io_channel, RqProcessorPtr handler) override;
     void run() override;
 
 private:
     std::ostream& m_err;
-    std::pair<IOPtr, RqHandlerPtr> m_channel_handler_pair;
+    std::pair<IOPtr, RqProcessorPtr> m_channel_handler_pair;
 };
 
 #endif // SERVER_H

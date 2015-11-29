@@ -147,7 +147,7 @@ std::string LedProtocolHelper::strip_single_parameter(const std::string &params)
     auto params_end = std::find_if(params_begin, params.cend(), [](char c){return std::isspace(c);});
 
     if (params_end != params.cend())
-        throw std::invalid_argument("RqHandler::strip_single_parameter(): parameter contains trailing characters: \"" + std::string(params_end, params.cend()) + "\"");
+        throw std::invalid_argument("LedProtocolHelper::strip_single_parameter(): parameter contains trailing characters: \"" + std::string(params_end, params.cend()) + "\"");
 
     return std::string(params_begin, params_end);
 }

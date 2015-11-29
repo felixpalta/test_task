@@ -5,10 +5,10 @@
 #include <memory>
 #include <map>
 
-class RqHandler : public IRqHandler
+class RqProcessor : public IRqProcessor
 {
 public:
-    RqHandler(std::ostream &err_stream);
+    RqProcessor(std::ostream &err_stream);
 
     std::string process_request(const std::string& input) override;
 

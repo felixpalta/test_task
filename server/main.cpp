@@ -7,12 +7,10 @@
 
 using namespace std;
 
-using RqHandlerPtr = std::shared_ptr<RqHandler>;
+using RqProcessorPtr = std::shared_ptr<IRqProcessor>;
 using LedHelperPtr = std::shared_ptr<LedProtocolHelper>;
 
-static RqHandlerPtr g_rq_processor = make_shared<RqHandler>(cerr);
-
-static void add_led_handlers(RqHandlerPtr rq_processor, LedHelperPtr led_helper)
+static void add_led_handlers(RqProcessorPtr rq_processor, LedHelperPtr led_helper)
 {
     rq_processor->add_handler("get-led-color", [led_helper](const std::string& params) { return led_helper->get_color(params); });
     rq_processor->add_handler("set-led-color", [led_helper](const std::string& params) { return led_helper->set_color(params); });
@@ -29,13 +27,15 @@ try
 
     auto led_protocol_helper = make_shared<LedProtocolHelper>(led);
 
-    add_led_handlers(g_rq_processor, led_protocol_helper);
+    RqProcessorPtr rq_processor = make_shared<RqProcessor>(cerr);
+
+    add_led_handlers(rq_processor, led_protocol_helper);
 
     auto fifo_pair = make_shared<FifoPair>("input_pipe", "output_pipe");
 
     Server server(cerr);
 
-    server.add(fifo_pair, g_rq_processor);
+    server.add(fifo_pair, rq_processor);
 
     server.run();
 }
