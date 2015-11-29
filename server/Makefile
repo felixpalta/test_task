@@ -1,4 +1,4 @@
-CXX=g++
+CXX=g++ -O2
 CXXFLAGS=-c -Wall -Wextra -Weffc++ -std=c++11 -pedantic \
                     -Wunreachable-code -Wshadow \
                     -Wold-style-cast -Wnon-virtual-dtor  \
