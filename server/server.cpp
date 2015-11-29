@@ -26,14 +26,13 @@ void Server::add(IOPtr io_channel)
 
 void Server::run()
 {
-
     while (true)
     {
         decltype(m_futures.begin()) it;
 
         for (it = m_futures.begin(); it != m_futures.end(); ++it)
         {
-            auto status = it->wait_for(std::chrono::seconds(1));
+            auto status = it->wait_for(std::chrono::milliseconds(1));
             if (status == std::future_status::ready)
                 break;
         }

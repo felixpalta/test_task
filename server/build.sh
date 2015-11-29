@@ -12,10 +12,10 @@ export OBJ_DIR="$BUILD_DIR"
 
 if [ -d "$BUILD_DIR" ];
 then
-  make clean all > /dev/null
+  make clean all 
 else
   mkdir -p "$BUILD_DIR"
-  make all > /dev/null
+  make all
 fi
 
 
