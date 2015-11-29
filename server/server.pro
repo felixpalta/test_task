@@ -4,8 +4,6 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    ledrqhandler.cpp \
-    abstractrqhandler.cpp \
     rgbled.cpp \
     fifopair.cpp \
     server.cpp \
@@ -14,8 +12,6 @@ SOURCES += main.cpp \
     ledprotocolhelper.cpp
 
 HEADERS += \
-    abstractrqhandler.h \
-    ledrqhandler.h \
     rgbled.h \
     irgbled.h \
     iblockingiochannel.h \
