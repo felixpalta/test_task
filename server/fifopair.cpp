@@ -5,7 +5,12 @@ extern "C"
 {
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <unistd.h>
+#include <fcntl.h>
 }
+
+#include <cstring>
+#include <cerrno>
 
 FifoPair::FifoPair(const std::string &input, const std::string &output)
     : m_input_pipe_name(input),
@@ -25,26 +30,28 @@ FifoPair::FifoPair(const std::string &input, const std::string &output)
 
 std::string FifoPair::read_input_line_blocking()
 {
-    // Blocks until this pipe is open for writing
-    // on the other end.
-    std::ifstream ifs(m_input_pipe_name.c_str());
+    int input_pipe_desc =  open(m_input_pipe_name.c_str(), O_RDONLY);
 
-    if (!ifs)
-        throw InternalException("Unable to open input pipe for reading");
+    if (input_pipe_desc < 0)
+        throw InternalException("Unable to open input pipe for reading: " + std::string(strerror(errno)));
 
     std::string input_buf;
+    input_buf.reserve(1024);
 
-    while(true)
+    char c;
+
+    while (read(input_pipe_desc, &c, 1))
     {
-          if (std::getline(ifs, input_buf))
-          {
-              if (!input_buf.empty())
-                  break;
-          }
-          else
-              ifs.clear();
+            if (c != '\n')
+                input_buf +=c;
+            else
+                break;
     }
 
+    if (close(input_pipe_desc) != 0)
+    {
+        throw InternalException("close(input_pipe) error: " + std::string(strerror(errno)));
+    }
     return input_buf;
 }
 
