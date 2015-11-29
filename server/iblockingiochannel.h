@@ -24,7 +24,7 @@ public:
     virtual std::string read_input_line_blocking() = 0;
 
     /**
-     * Adds newline to to out_s, writes it to output and
+     * Adds newline to out_s, writes it to output and
      * blocks until writing is finished.
      */
     virtual void write_output_line_blocking(const std::string &out_s) = 0;
