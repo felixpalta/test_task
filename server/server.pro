@@ -15,12 +15,12 @@ HEADERS += \
     ledrqhandler.h \
     rgbled.h \
     irgbled.h \
-    iledmanager.h \
     iblockingiochannel.h \
     fifopair.h \
     iserver.h \
     server.h \
-    irqhandler.h
+    irqhandler.h \
+    irqhandlerset.h
 
 *g++*{
 QMAKE_CXXFLAGS +=   -Weffc++ -std=c++11 -pedantic -Wall -Wextra \
