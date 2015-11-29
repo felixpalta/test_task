@@ -1,5 +1,10 @@
 #include "rqhandlerset.h"
 
+RqHandlerSet::RqHandlerSet()
+    : m_rq_handlers()
+{
+}
+
 void RqHandlerSet::add_handler(const std::string &rq_name, Handler h)
 {
     m_rq_handlers[rq_name] = h;

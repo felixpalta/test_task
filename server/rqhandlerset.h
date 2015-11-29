@@ -7,7 +7,7 @@
 class RqHandlerSet : public IRqHandlerSet
 {
 public:
-    RqHandlerSet() = default;
+    RqHandlerSet();
 
     void add_handler(const std::string &rq_name, Handler h) override;
     Handler get_handler(const std::string &rq_name) const override;
