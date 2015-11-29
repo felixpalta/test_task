@@ -3,6 +3,7 @@
 #include "server.h"
 #include "ledprotocolhelper.h"
 #include "rqprocessor.h"
+#include "args.h"
 #include <iostream>
 
 using std::shared_ptr;
@@ -25,27 +26,41 @@ static void add_led_handlers(RqProcessorPtr rq_processor, LedHelperPtr led_helpe
     rq_processor->add_handler("set-led-state", [led_helper](const string& params) { return led_helper->set_state(params); });
 }
 
-int main()
+static void print_usage(std::ostream& out, char *name)
+{
+    out << "Usage: " << name << " input_pipe output_pipe\n";
+}
+
+int main(int argc, char **argv)
 try
 {
+    Args args(argc, argv);
+
     auto led = make_shared<RgbLed>(cout);
     auto led_protocol_helper = make_shared<LedProtocolHelper>(led);
 
     RqProcessorPtr rq_processor = make_shared<RqProcessor>(cerr);
     add_led_handlers(rq_processor, led_protocol_helper);
 
-    auto fifo_pair = make_shared<FifoPair>("input_pipe", "output_pipe");
+    auto fifo_pair = make_shared<FifoPair>(args.input_pipe_name(), args.output_pipe_name());
 
     Server server(cerr);
     server.add(fifo_pair, rq_processor);
     server.run();
 }
+catch (Args::InvalidArgs& e)
+{
+    cerr << e.what() << '\n';
+    print_usage(cerr, argv[0]);
+    return 1;
+}
 catch (exception &e)
 {
     cerr << "main() exception: " << e.what() << '\n';
-    return 1;
+    return 2;
 }
 catch (...)
 {
     cerr << "Unknown exception" << '\n';
+    return 3;
 }
