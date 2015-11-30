@@ -13,6 +13,5 @@ IClientProducer::IOPtr SingleFifoProducer::wait_for_new_client()
 
     IOPtr result = std::make_shared<SingleFifo>(client_id);
 
-    m_log_stream << "Created fifo with id: " << client_id << std::endl;
     return result;
 }
