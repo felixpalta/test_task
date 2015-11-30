@@ -10,7 +10,9 @@ SOURCES += main.cpp \
     server.cpp \
     ledprotocolhelper.cpp \
     rqprocessor.cpp \
-    args.cpp
+    args.cpp \
+    singlefifo.cpp \
+    singlefifoproducer.cpp
 
 HEADERS += \
     rgbled.h \
@@ -23,7 +25,10 @@ HEADERS += \
     rqprocessor.h \
     irqprocessor.h \
     args.h \
-    clientproducer.h
+    clientproducer.h \
+    iclientproducer.h \
+    singlefifo.h \
+    singlefifoproducer.h
 
 *g++*{
 QMAKE_CXXFLAGS +=   -Weffc++ -std=c++11 -pedantic -Wall -Wextra \
