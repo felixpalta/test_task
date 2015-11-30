@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     rqprocessor.cpp \
     args.cpp \
     singlefifo.cpp \
-    singlefifoproducer.cpp
+    singlefifoproducer.cpp \
+    singlethreadserver.cpp
 
 HEADERS += \
     rgbled.h \
@@ -27,7 +28,8 @@ HEADERS += \
     args.h \
     iclientproducer.h \
     singlefifo.h \
-    singlefifoproducer.h
+    singlefifoproducer.h \
+    singlethreadserver.h
 
 *g++*{
 QMAKE_CXXFLAGS +=   -Weffc++ -std=c++11 -pedantic -Wall -Wextra \

@@ -18,6 +18,10 @@ public:
 
     using IOPtr = std::shared_ptr<IBlockingIOChannel>;
 
+    /**
+     * May block until client is processed.
+     * Whether add() is blocking or not depends on implementation.
+     */
     virtual void add(IOPtr io_channel) = 0;
     virtual void run() = 0;
 

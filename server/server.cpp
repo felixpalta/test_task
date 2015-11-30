@@ -1,6 +1,8 @@
 #include "server.h"
 #include <thread>
 #include <chrono>
+#include <string>
+#include <stdexcept>
 
 Server::Server(std::ostream& err_stream, RqProcessorPtr rq_processor, ProducerPtr producer)
     : m_err(err_stream),
@@ -28,6 +30,7 @@ void Server::add(IOPtr io_channel)
 void Server::run()
 {
     while (true)
+    try
     {
         IOPtr client = m_producer->wait_for_new_client();
 
@@ -46,5 +49,9 @@ void Server::run()
         }
         if (it != m_futures.end())
             m_futures.erase(it);
+    }
+    catch (std::exception& e)
+    {
+        m_err << "SingleThreadServer::run(): " << e.what() << std::endl;
     }
 }
