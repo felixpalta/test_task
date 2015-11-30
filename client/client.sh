@@ -90,6 +90,7 @@ case "$REQUEST" in
 *) print_error "Invalid request type"; print_usage; exit $FAIL;;
 esac
 
+mkfifo "$CLIENT_FIFO"
 # Send request as background job and block until reply is received.
 echo "$CLIENT_FIFO" > "$SERVER_FIFO"
 #echo "Added $CLIENT_FIFO to server"

@@ -13,11 +13,12 @@ extern "C"
 SingleFifo::SingleFifo(const std::string& filename)
     : m_filename(filename)
 {
-    remove_if_exists(m_filename);
-
-    int status = mkfifo(m_filename.c_str(), S_IRUSR | S_IWUSR);
-    if (status)
-        throw InternalException("Unable to create FIFO" + filename);
+    if (!file_exists(filename))
+    {
+        int status = mkfifo(m_filename.c_str(), S_IRUSR | S_IWUSR);
+        if (status)
+            throw InternalException("Unable to create FIFO" + filename);
+    }
 }
 
 std::string SingleFifo::read_input_line_blocking()
@@ -49,22 +50,4 @@ bool SingleFifo::file_exists(const std::string &file_name)
 {
     struct stat buf;
     return stat(file_name.c_str(), &buf) == 0;
-}
-
-void SingleFifo::remove_if_exists(const std::string &file_name)
-{
-    if (file_exists(file_name))
-    {
-        int status = remove(file_name.c_str());
-        if (status)
-            throw InternalException("File exists and cannot be removed: " + file_name);
-    }
-}
-
-SingleFifo::~SingleFifo()
-{
-    int status = remove(m_filename.c_str());
-    if (status)
-        throw InternalException("SingleFifo: Unable to remove FIFO");
-    std::cout << "Removed fifo: " << m_filename << std::endl;
 }

@@ -14,12 +14,10 @@ public:
 
     virtual void write_output_line_blocking(const std::string &out_s) override;
 
-    ~SingleFifo() override;
 private:
     std::string m_filename;
 
     bool file_exists(const std::string &file_name);
-    void remove_if_exists(const std::string &file_name);
 };
 
 #endif // SINGLEFIFO_H
