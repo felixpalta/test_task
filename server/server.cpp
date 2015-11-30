@@ -22,7 +22,7 @@ void Server::add(IOPtr io_channel)
                 io_channel->write_output_line_blocking(output);
         };
 
-    m_futures.emplace_back(std::async(std::launch::async, task));
+    m_futures.emplace_back(new Future(std::async(std::launch::async, task)));
 }
 
 void Server::run()
@@ -35,14 +35,16 @@ void Server::run()
 
         decltype(m_futures.begin()) it;
 
-//        for (it = m_futures.begin(); it != m_futures.end(); ++it)
-//        {
-//            auto status = it->wait_for(std::chrono::milliseconds(1));
-//            if (status == std::future_status::ready)
-//                break;
-//        }
-//        it->get();
-//        if (it != m_futures.end())
-//            m_futures.erase(it);
+        for (it = m_futures.begin(); it != m_futures.end(); ++it)
+        {
+            auto &ptr = *it;
+            if (ptr->valid())
+            {
+                ptr->get();
+                break;
+            }
+        }
+        if (it != m_futures.end())
+            m_futures.erase(it);
     }
 }

@@ -4,7 +4,7 @@
 #include "iserver.h"
 #include "irqprocessor.h"
 #include "iclientproducer.h"
-#include <vector>
+#include <list>
 #include <ostream>
 #include <thread>
 #include <future>
@@ -25,7 +25,9 @@ private:
     RqProcessorPtr m_rq_processor;
     ProducerPtr m_producer;
     using Task = std::function<void(void)>;
-    std::vector<std::future<void>> m_futures;
+    using Future = std::future<void>;
+    using FuturePtr = std::unique_ptr<Future>;
+    std::list<FuturePtr> m_futures;
 };
 
 #endif // SERVER_H
