@@ -5,6 +5,7 @@
 #include "rqprocessor.h"
 #include "args.h"
 #include "singlefifoproducer.h"
+#include "singlefifo.h"
 #include <iostream>
 
 using std::shared_ptr;
@@ -36,13 +37,17 @@ static void print_usage(std::ostream& out, char *name)
 int main(int argc, char **argv)
 try
 {
+    std::string service_pipe_name(argv[1]);
+
+    auto service_pipe = make_shared<SingleFifo>(service_pipe_name);
+
     auto led = make_shared<RgbLed>(cout);
     auto led_protocol_helper = make_shared<LedProtocolHelper>(led);
 
     RqProcessorPtr rq_processor = make_shared<RqProcessor>(cerr);
     add_led_handlers(rq_processor, led_protocol_helper);
 
-    auto producer = make_shared<SingleFifoProducer>(cin, cout);
+    auto producer = make_shared<SingleFifoProducer>(service_pipe, cout);
 
     Server server(cerr, rq_processor, producer);
     server.run();

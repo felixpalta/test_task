@@ -9,8 +9,8 @@
 class IClientProducer
 {
 public:
-    using ClientPtr = std::shared_ptr<IBlockingIOChannel>;
-    virtual ClientPtr wait_for_new_client() = 0;
+    using IOPtr = std::shared_ptr<IBlockingIOChannel>;
+    virtual IOPtr wait_for_new_client() = 0;
     virtual ~IClientProducer() = default;
 };
 

@@ -12,12 +12,13 @@ function print_error {
 }
 
 CLIENT_ID="client_"`date +%s`
-echo "client $CLIENT_ID created"
 CLIENT_FIFO=`pwd`"/$CLIENT_ID"
+echo "client $CLIENT_ID, pipe $CLIENT_FIFO"
 
-REQUEST=$1
-PARAMETER=$2
-NEW_VALUE=$3
+SERVER_FIFO=$1
+REQUEST=$2
+PARAMETER=$3
+NEW_VALUE=$4
 
 OK=0
 FAIL=1
@@ -83,11 +84,6 @@ if [[ "$#" -lt 3 ]]; then
   exit $FAIL
 fi
  
-if [[ ! -p "$PIPE_TO_SERVER" || ! -p "$PIPE_FROM_SERVER" ]]; then
-  print_error "Server channels (pipes) not found, check whether server is running"
-  exit $FAIL
-fi
-
 case "$REQUEST" in
 "--get")  process_get;;
 "--set")  process_set;;
@@ -95,7 +91,9 @@ case "$REQUEST" in
 esac
 
 # Send request as background job and block until reply is received.
-echo "$INTERNAL_COMMAND" > "$CLIENT_FIFO" & REPLY=`cat $CLIENT_FIFO`
+echo "$CLIENT_FIFO" > "$SERVER_FIFO"
+echo "Added $CLIENT_FIFO to server"
+echo "$INTERNAL_COMMAND" > "$CLIENT_FIFO" && REPLY=`cat $CLIENT_FIFO`
 
 REPLY_ARR=($REPLY)
 

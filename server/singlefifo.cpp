@@ -1,5 +1,6 @@
 #include "singlefifo.h"
 #include <fstream>
+#include <iostream>
 
 extern "C"
 {
@@ -65,4 +66,5 @@ SingleFifo::~SingleFifo()
     int status = remove(m_filename.c_str());
     if (status)
         throw InternalException("SingleFifo: Unable to remove FIFO");
+    std::cout << "Removed fifo: " << m_filename << std::endl;
 }
