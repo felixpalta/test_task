@@ -2,9 +2,10 @@
 #include <thread>
 #include <chrono>
 
-Server::Server(std::ostream& err_stream, RqProcessorPtr rq_processor)
+Server::Server(std::ostream& err_stream, RqProcessorPtr rq_processor, ProducerPtr producer)
     : m_err(err_stream),
       m_rq_processor(rq_processor),
+      m_producer(producer),
       m_futures()
 {
 }
@@ -28,16 +29,20 @@ void Server::run()
 {
     while (true)
     {
-        decltype(m_futures.begin()) it;
+        IOPtr client = m_producer->wait_for_new_client();
 
-        for (it = m_futures.begin(); it != m_futures.end(); ++it)
-        {
-            auto status = it->wait_for(std::chrono::milliseconds(1));
-            if (status == std::future_status::ready)
-                break;
-        }
+        add(client);
 
-        if (it != m_futures.end())
-            m_futures.erase(it);
+//        decltype(m_futures.begin()) it;
+
+//        for (it = m_futures.begin(); it != m_futures.end(); ++it)
+//        {
+//            auto status = it->wait_for(std::chrono::milliseconds(1));
+//            if (status == std::future_status::ready)
+//                break;
+//        }
+
+//        if (it != m_futures.end())
+//            m_futures.erase(it);
     }
 }

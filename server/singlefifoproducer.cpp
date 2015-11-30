@@ -1,8 +1,9 @@
 #include "singlefifoproducer.h"
 #include "singlefifo.h"
 
-SingleFifoProducer::SingleFifoProducer(std::istream& id_stream)
-    : m_id_stream(id_stream)
+SingleFifoProducer::SingleFifoProducer(std::istream& id_stream, std::ostream &log)
+    : m_id_stream(id_stream),
+      m_log_stream(log)
 {
 }
 
@@ -16,5 +17,7 @@ IClientProducer::ClientPtr SingleFifoProducer::wait_for_new_client()
     }
 
     ClientPtr result = std::make_shared<SingleFifo>(client_id);
+
+    m_log_stream << "Created fifo with id: " << client_id << std::endl;
     return result;
 }

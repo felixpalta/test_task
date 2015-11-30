@@ -4,12 +4,14 @@
 #include "ledprotocolhelper.h"
 #include "rqprocessor.h"
 #include "args.h"
+#include "singlefifoproducer.h"
 #include <iostream>
 
 using std::shared_ptr;
 using std::make_shared;
 using std::cout;
 using std::cerr;
+using std::cin;
 using std::exception;
 using std::string;
 
@@ -34,18 +36,15 @@ static void print_usage(std::ostream& out, char *name)
 int main(int argc, char **argv)
 try
 {
-    Args args(argc, argv);
-
     auto led = make_shared<RgbLed>(cout);
     auto led_protocol_helper = make_shared<LedProtocolHelper>(led);
 
     RqProcessorPtr rq_processor = make_shared<RqProcessor>(cerr);
     add_led_handlers(rq_processor, led_protocol_helper);
 
-    auto fifo_pair = make_shared<FifoPair>(args.input_pipe_name(), args.output_pipe_name());
+    auto producer = make_shared<SingleFifoProducer>(cin, cout);
 
-    Server server(cerr, rq_processor);
-    server.add(fifo_pair);
+    Server server(cerr, rq_processor, producer);
     server.run();
 }
 catch (Args::InvalidArgs& e)
