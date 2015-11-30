@@ -17,6 +17,9 @@ private:
     std::string m_filename;
 
     bool file_exists(const std::string &file_name);
+
+    SingleFifo(const SingleFifo&) = delete;
+    SingleFifo& operator=(const SingleFifo&) = delete;
 };
 
 #endif // SINGLEFIFO_H

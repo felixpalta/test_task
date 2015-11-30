@@ -12,6 +12,9 @@ public:
     IOPtr wait_for_new_client() override;
 private:
     IOPtr m_io;
+
+    SingleFifoProducer(const SingleFifoProducer&) = delete;
+    SingleFifoProducer& operator=(const SingleFifoProducer&) = delete;
 };
 
 #endif // SINGLEFIFOPRODUCER_H

@@ -27,7 +27,8 @@ private:
     static std::string get_ok_string();
     static std::string get_failed_string();
 
-
+    RqProcessor(const RqProcessor&) = delete;
+    RqProcessor& operator=(const RqProcessor&) = delete;
 };
 
 #endif // RQPROCESSOR_H

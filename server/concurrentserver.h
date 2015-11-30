@@ -27,6 +27,9 @@ private:
     using Future = std::future<void>;
     using FuturePtr = std::unique_ptr<Future>;
     std::list<FuturePtr> m_futures;
+
+    ConcurrentServer(const ConcurrentServer&) = delete;
+    ConcurrentServer& operator=(const ConcurrentServer&) = delete;
 };
 
 #endif // CONCURRENT_SERVER_H

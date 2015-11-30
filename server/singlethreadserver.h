@@ -24,6 +24,9 @@ private:
     std::ostream& m_err;
     RqProcessorPtr m_rq_processor;
     ProducerPtr m_producer;
+
+    SingleThreadServer(const SingleThreadServer&) = delete;
+    SingleThreadServer& operator=(const SingleThreadServer&) = delete;
 };
 
 #endif // SINGLETHREADSERVER_H
