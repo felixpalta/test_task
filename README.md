@@ -39,7 +39,7 @@ e.g.
     PARAMs and NEW_VALUEs:
         color [RED|GREEN|BLUE]
         state [ON|OFF]
-        rate [0..5]
+        rate [integer value] # Invalid value will be discarded by server, not client
 
 To see help run `client.sh` without parameters.
 
@@ -52,7 +52,8 @@ Server constantly listens to `server pipe`.
 Each new client generates a unique ID and a unique pipe, i.e. `client pipe ID`.
 The client sends its client pipe name to server thorugh `server pipe`.
 After that client writes a request to the `client pipe` and waits for the server to read it.
-When server receives a `client pipe ID` it creates a new task and adds it to the task queue.
+When server receives a `client pipe ID` it creates a new task and adds it to the task queue (for ConcurrentServer)
+or blocks until request is processed (for SingleThreadedServer).
 In each task, the `client pipe` is opened and a request is read from it. The request is then processed and a reply is written
 back to the same `client pipe`.
 When client has successfully finished writing request to `client pipe` it knows that the server has consumed it, so 
