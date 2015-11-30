@@ -157,7 +157,7 @@ function process_ok_reply {
 
 case "$REPLY_STATUS" in
 "OK") process_ok_reply;;
-"FAILED") exit $FAIL;;
+"FAILED") print_error "Server return FAILED"; exit $FAIL;;
 *) print_error "Received unexpected reply status: $REPLY_STATUS"; exit $FAIL;;
 esac;
 
