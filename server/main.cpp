@@ -40,6 +40,7 @@ try
     Args args(argc, argv);
 
     auto service_pipe = make_shared<SingleFifo>(args.input_pipe_name());
+    auto producer = make_shared<SingleFifoProducer>(service_pipe);
 
     auto led = make_shared<RgbLed>(cout);
     auto led_protocol_helper = make_shared<LedProtocolHelper>(led);
@@ -47,10 +48,25 @@ try
     RqProcessorPtr rq_processor = make_shared<RqProcessor>(cerr);
     add_led_handlers(rq_processor, led_protocol_helper);
 
-    auto producer = make_shared<SingleFifoProducer>(service_pipe);
-
-    ConcurrentServer server(cerr, rq_processor, producer);
-    server.run();
+    switch (args.server_type())
+    {
+        case Args::SINGLE_THREADED:
+        {
+            SingleThreadServer server(cerr, rq_processor, producer);
+            server.run();
+        }
+        break;
+        case Args::CONCURRENT:
+        {
+            ConcurrentServer server(cerr, rq_processor, producer);
+            server.run();
+        }
+        break;
+    default:
+        cerr << "main(): Invalid server type\n";
+        return 1;
+    }
+    return 0;
 }
 catch (Args::InvalidArgs& e)
 {
