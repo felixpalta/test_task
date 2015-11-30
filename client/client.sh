@@ -149,10 +149,9 @@ function check_reply_value {
 function process_ok_reply {
   case "$REQUEST" in
   "--set") check_no_reply_value;;
-  "--get") check_reply_value;;
+  "--get") check_reply_value;  echo "$OUTPUT";;
   *) ;; # impossible at this point
   esac
-  echo "$OUTPUT"
   exit $OK
 }
 
