@@ -1,5 +1,4 @@
 #include "rgbled.h"
-#include "fifopair.h"
 #include "server.h"
 #include "ledprotocolhelper.h"
 #include "rqprocessor.h"
@@ -37,9 +36,9 @@ static void print_usage(std::ostream& out, char *name)
 int main(int argc, char **argv)
 try
 {
-    std::string service_pipe_name(argv[1]);
+    Args args(argc, argv);
 
-    auto service_pipe = make_shared<SingleFifo>(service_pipe_name);
+    auto service_pipe = make_shared<SingleFifo>(args.input_pipe_name());
 
     auto led = make_shared<RgbLed>(cout);
     auto led_protocol_helper = make_shared<LedProtocolHelper>(led);

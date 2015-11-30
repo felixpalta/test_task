@@ -11,8 +11,8 @@ function print_error {
   echo $1 1>&2;
 }
 
-CLIENT_ID="client_"`date +%s`
-CLIENT_FIFO=`pwd`"/$CLIENT_ID"
+CLIENT_ID="client_$$_"`date +%s`
+CLIENT_FIFO="/tmp/$CLIENT_ID"
 #echo "client $CLIENT_ID, pipe $CLIENT_FIFO"
 
 SERVER_FIFO=$1
@@ -90,7 +90,10 @@ case "$REQUEST" in
 *) print_error "Invalid request type"; print_usage; exit $FAIL;;
 esac
 
-mkfifo "$CLIENT_FIFO"
+if [ ! -p "$CLIENT_FIFO" ];
+then
+  mkfifo "$CLIENT_FIFO"
+fi
 # Send request as background job and block until reply is received.
 echo "$CLIENT_FIFO" > "$SERVER_FIFO"
 #echo "Added $CLIENT_FIFO to server"

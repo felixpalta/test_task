@@ -16,10 +16,8 @@ public:
     };
 
     std::string input_pipe_name();
-    std::string output_pipe_name();
 private:
     std::string m_input_pipe_name;
-    std::string m_output_pipe_name;
 };
 
 #endif // ARGS_H

@@ -17,7 +17,7 @@ SingleFifo::SingleFifo(const std::string& filename)
     {
         int status = mkfifo(m_filename.c_str(), S_IRUSR | S_IWUSR);
         if (status)
-            throw InternalException("Unable to create FIFO" + filename);
+            throw InternalException("Unable to create FIFO: " + filename);
     }
 }
 
