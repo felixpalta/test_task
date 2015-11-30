@@ -11,11 +11,13 @@ function print_error {
   echo $1 1>&2;
 }
 
-PIPE_TO_SERVER=$1
-PIPE_FROM_SERVER=$2
-REQUEST=$3
-PARAMETER=$4
-NEW_VALUE=$5
+CLIENT_ID="client_"`date +%s`
+echo "client $CLIENT_ID created"
+CLIENT_FIFO=`pwd`"/$CLIENT_ID"
+
+REQUEST=$1
+PARAMETER=$2
+NEW_VALUE=$3
 
 OK=0
 FAIL=1
@@ -75,7 +77,7 @@ function process_set {
   esac
 }
 
-if [[ "$#" -lt 4 ]]; then
+if [[ "$#" -lt 3 ]]; then
   print_error "Not enough parameters"
   print_usage
   exit $FAIL
@@ -93,7 +95,7 @@ case "$REQUEST" in
 esac
 
 # Send request as background job and block until reply is received.
-echo "$INTERNAL_COMMAND" > "$PIPE_TO_SERVER" & REPLY=`cat $PIPE_FROM_SERVER`
+echo "$INTERNAL_COMMAND" > "$CLIENT_FIFO" & REPLY=`cat $CLIENT_FIFO`
 
 REPLY_ARR=($REPLY)
 
