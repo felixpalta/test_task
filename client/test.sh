@@ -66,12 +66,18 @@ function rate_test {
   done
 }
 
+# while true
+# do
+  # color_test
+  # rate_test
+  # state_test
+# done
+
 while true
-do
-  color_test
-  rate_test
-  state_test
-done
+do color_test; done &
+
+wait
+
 
 
 
