@@ -1,5 +1,5 @@
 #include "rgbled.h"
-#include "server.h"
+#include "concurrentserver.h"
 #include "ledprotocolhelper.h"
 #include "rqprocessor.h"
 #include "args.h"
@@ -48,7 +48,7 @@ try
 
     auto producer = make_shared<SingleFifoProducer>(service_pipe);
 
-    Server server(cerr, rq_processor, producer);
+    ConcurrentServer server(cerr, rq_processor, producer);
     server.run();
 }
 catch (Args::InvalidArgs& e)

@@ -1,5 +1,5 @@
-#ifndef SERVER_H
-#define SERVER_H
+#ifndef CONCURRENT_SERVER_H
+#define CONCURRENT_SERVER_H
 
 #include "iserver.h"
 #include "irqprocessor.h"
@@ -9,13 +9,13 @@
 #include <future>
 #include <functional>
 
-class Server : public IServer
+class ConcurrentServer : public IServer
 {
 public:
     using RqProcessorPtr = std::shared_ptr<IRqProcessor>;
     using ProducerPtr = std::shared_ptr<IClientProducer>;
 
-    Server(std::ostream& err_stream, RqProcessorPtr rq_processor, ProducerPtr producer);
+    ConcurrentServer(std::ostream& err_stream, RqProcessorPtr rq_processor, ProducerPtr producer);
     void add(IOPtr io_channel) override;
     void run() override;
 
@@ -29,4 +29,4 @@ private:
     std::list<FuturePtr> m_futures;
 };
 
-#endif // SERVER_H
+#endif // CONCURRENT_SERVER_H

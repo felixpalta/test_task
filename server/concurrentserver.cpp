@@ -1,10 +1,10 @@
-#include "server.h"
+#include "concurrentserver.h"
 #include <thread>
 #include <chrono>
 #include <string>
 #include <stdexcept>
 
-Server::Server(std::ostream& err_stream, RqProcessorPtr rq_processor, ProducerPtr producer)
+ConcurrentServer::ConcurrentServer(std::ostream& err_stream, RqProcessorPtr rq_processor, ProducerPtr producer)
     : m_err(err_stream),
       m_rq_processor(rq_processor),
       m_producer(producer),
@@ -12,10 +12,10 @@ Server::Server(std::ostream& err_stream, RqProcessorPtr rq_processor, ProducerPt
 {
 }
 
-void Server::add(IOPtr io_channel)
+void ConcurrentServer::add(IOPtr io_channel)
 {
     if (!io_channel)
-        throw std::invalid_argument("Server::io_channel is null");
+        throw std::invalid_argument("ConcurrentServer::io_channel is null");
 
     Task task = [this, io_channel]()
         {
@@ -27,7 +27,7 @@ void Server::add(IOPtr io_channel)
     m_futures.emplace_back(new Future(std::async(std::launch::async, task)));
 }
 
-void Server::run()
+void ConcurrentServer::run()
 {
     while (true)
     try

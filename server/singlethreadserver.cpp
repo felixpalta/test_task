@@ -13,7 +13,7 @@ SingleThreadServer::SingleThreadServer(std::ostream& err_stream,
 void SingleThreadServer::add(IOPtr io_channel)
 {
     if (!io_channel)
-        throw std::invalid_argument("Server::io_channel is null");
+        throw std::invalid_argument("SingleThreadedServer::io_channel is null");
 
     std::string input = io_channel->read_input_line_blocking();
     std::string output = this->m_rq_processor->process_request(input);

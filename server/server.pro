@@ -7,13 +7,13 @@ CONFIG += thread
 SOURCES += main.cpp \
     rgbled.cpp \
     fifopair.cpp \
-    server.cpp \
     ledprotocolhelper.cpp \
     rqprocessor.cpp \
     args.cpp \
     singlefifo.cpp \
     singlefifoproducer.cpp \
-    singlethreadserver.cpp
+    singlethreadserver.cpp \
+    concurrentserver.cpp
 
 HEADERS += \
     rgbled.h \
@@ -21,7 +21,6 @@ HEADERS += \
     iblockingiochannel.h \
     fifopair.h \
     iserver.h \
-    server.h \
     ledprotocolhelper.h \
     rqprocessor.h \
     irqprocessor.h \
@@ -29,7 +28,8 @@ HEADERS += \
     iclientproducer.h \
     singlefifo.h \
     singlefifoproducer.h \
-    singlethreadserver.h
+    singlethreadserver.h \
+    concurrentserver.h
 
 *g++*{
 QMAKE_CXXFLAGS +=   -Weffc++ -std=c++11 -pedantic -Wall -Wextra \
