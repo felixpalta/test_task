@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function print_usage {
-  echo "Usage: $0 [pipe_to_server] [pipe_from_server] [--get|--set] [color|rate|state] [only for --set: new_value]"
+  echo "Usage: $0 [server_id_pipe] [--get|--set] [color|rate|state] [only for --set: new_value]"
   echo "color values: [RED|GREEN|BLUE]"
   echo "state values: [ON|OFF]"
   echo "rate values: 0..5"
@@ -13,7 +13,7 @@ function print_error {
 
 CLIENT_ID="client_"`date +%s`
 CLIENT_FIFO=`pwd`"/$CLIENT_ID"
-echo "client $CLIENT_ID, pipe $CLIENT_FIFO"
+#echo "client $CLIENT_ID, pipe $CLIENT_FIFO"
 
 SERVER_FIFO=$1
 REQUEST=$2
@@ -92,8 +92,10 @@ esac
 
 # Send request as background job and block until reply is received.
 echo "$CLIENT_FIFO" > "$SERVER_FIFO"
-echo "Added $CLIENT_FIFO to server"
+#echo "Added $CLIENT_FIFO to server"
 echo "$INTERNAL_COMMAND" > "$CLIENT_FIFO" && REPLY=`cat $CLIENT_FIFO`
+
+rm -f "$CLIENT_FIFO"
 
 REPLY_ARR=($REPLY)
 
