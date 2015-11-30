@@ -22,7 +22,6 @@ public:
     virtual void run() = 0;
 
     virtual ~IServer() = default;
-
 };
 
 #endif // ISERVER_H

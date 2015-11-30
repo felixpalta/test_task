@@ -4,15 +4,14 @@
 #include "iblockingiochannel.h"
 #include <string>
 
-
 class SingleFifo : public IBlockingIOChannel
 {
 public:
     SingleFifo(const std::string& filename);
 
-    virtual std::string read_input_line_blocking() override;
+    std::string read_input_line_blocking() override;
 
-    virtual void write_output_line_blocking(const std::string &out_s) override;
+    void write_output_line_blocking(const std::string &out_s) override;
 
 private:
     std::string m_filename;

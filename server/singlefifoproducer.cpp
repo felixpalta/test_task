@@ -1,9 +1,8 @@
 #include "singlefifoproducer.h"
 #include "singlefifo.h"
 
-SingleFifoProducer::SingleFifoProducer(IOPtr input, std::ostream &log)
-    : m_io(input),
-      m_log_stream(log)
+SingleFifoProducer::SingleFifoProducer(IOPtr input)
+    : m_io(input)
 {
 }
 

@@ -6,7 +6,6 @@
 #include "iclientproducer.h"
 #include <list>
 #include <ostream>
-#include <thread>
 #include <future>
 #include <functional>
 

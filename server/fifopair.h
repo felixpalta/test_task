@@ -2,7 +2,6 @@
 #define FIFOPAIR_H
 
 #include "iblockingiochannel.h"
-#include <fstream>
 
 class FifoPair : public IBlockingIOChannel
 {

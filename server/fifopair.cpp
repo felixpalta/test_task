@@ -41,10 +41,10 @@ std::string FifoPair::read_input_line_blocking()
 
     while (read(input_pipe_desc, &c, 1))
     {
-            if (c != '\n')
-                input_buf +=c;
-            else
-                break;
+        if (c != '\n')
+            input_buf +=c;
+        else
+            break;
     }
 
     if (close(input_pipe_desc) != 0)

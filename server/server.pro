@@ -25,7 +25,6 @@ HEADERS += \
     rqprocessor.h \
     irqprocessor.h \
     args.h \
-    clientproducer.h \
     iclientproducer.h \
     singlefifo.h \
     singlefifoproducer.h

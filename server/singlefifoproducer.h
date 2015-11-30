@@ -8,11 +8,10 @@
 class SingleFifoProducer : public IClientProducer
 {
 public:
-    SingleFifoProducer(IOPtr input, std::ostream& log);
-    virtual IOPtr wait_for_new_client() override;
+    SingleFifoProducer(IOPtr input);
+    IOPtr wait_for_new_client() override;
 private:
     IOPtr m_io;
-    std::ostream& m_log_stream;
 };
 
 #endif // SINGLEFIFOPRODUCER_H

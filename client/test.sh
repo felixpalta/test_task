@@ -74,21 +74,4 @@ do
 done
 
 
-# while true 
-# do
-# color_test; sleep 0.1;
-# done &
-
-# while true 
-# do
-# state_test; sleep 0.1;
-# done &
-
-# while true 
-# do
-# rate_test; sleep 0.1;
-# done &
-
-# wait
-
 

@@ -46,7 +46,7 @@ try
     RqProcessorPtr rq_processor = make_shared<RqProcessor>(cerr);
     add_led_handlers(rq_processor, led_protocol_helper);
 
-    auto producer = make_shared<SingleFifoProducer>(service_pipe, cout);
+    auto producer = make_shared<SingleFifoProducer>(service_pipe);
 
     Server server(cerr, rq_processor, producer);
     server.run();
