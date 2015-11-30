@@ -1,5 +1,6 @@
 #include "rgbled.h"
 #include "concurrentserver.h"
+#include "singlethreadserver.h"
 #include "ledprotocolhelper.h"
 #include "rqprocessor.h"
 #include "args.h"
