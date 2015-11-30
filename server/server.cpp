@@ -35,14 +35,14 @@ void Server::run()
 
         decltype(m_futures.begin()) it;
 
-        for (it = m_futures.begin(); it != m_futures.end(); ++it)
-        {
-            auto status = it->wait_for(std::chrono::milliseconds(1));
-            if (status == std::future_status::ready)
-                break;
-        }
-        it->get();
-        if (it != m_futures.end())
-            m_futures.erase(it);
+//        for (it = m_futures.begin(); it != m_futures.end(); ++it)
+//        {
+//            auto status = it->wait_for(std::chrono::milliseconds(1));
+//            if (status == std::future_status::ready)
+//                break;
+//        }
+//        it->get();
+//        if (it != m_futures.end())
+//            m_futures.erase(it);
     }
 }
