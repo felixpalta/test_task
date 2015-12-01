@@ -1,5 +1,5 @@
-CXX=g++ -O2
-CXXFLAGS=-pthread -Wall -Wextra -Weffc++ -std=c++11 -pedantic \
+CXX=g++
+CXXFLAGS=-pthread -O2 -Wall -Wextra -Weffc++ -std=c++11 -pedantic \
                     -Wunreachable-code -Wshadow \
                     -Wold-style-cast -Wnon-virtual-dtor  \
                     -Woverloaded-virtual \
