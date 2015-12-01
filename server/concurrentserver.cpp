@@ -52,6 +52,6 @@ void ConcurrentServer::run()
     }
     catch (std::exception& e)
     {
-        m_err << "SingleThreadServer::run(): " << e.what() << std::endl;
+        m_err << "ConcurrentServer::run(): " << e.what() << std::endl;
     }
 }

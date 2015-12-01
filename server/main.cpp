@@ -31,7 +31,7 @@ static void add_led_handlers(RqProcessorPtr rq_processor, LedHelperPtr led_helpe
 
 static void print_usage(std::ostream& out, char *name)
 {
-    out << "Usage: " << name << " input_pipe output_pipe\n";
+    out << "Usage: " << name << " server_pipe\n";
 }
 
 int main(int argc, char **argv)

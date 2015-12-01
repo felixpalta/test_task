@@ -22,7 +22,7 @@ SingleFifo::SingleFifo(const std::string& filename)
 
 std::string SingleFifo::read_input_line_blocking()
 {
-    std::ifstream ifs(m_filename.c_str());
+    std::ifstream ifs(m_filename);
 
     if (!ifs)
         throw InternalException("SingleFifo: Unable to open input pipe for reading");
@@ -38,7 +38,7 @@ std::string SingleFifo::read_input_line_blocking()
 
 void SingleFifo::write_output_line_blocking(const std::string &out_s)
 {
-    std::ofstream ofs(m_filename.c_str());
+    std::ofstream ofs(m_filename);
 
     if (!ofs)
         throw InternalException("SingleFifo: Unable to open output pipe for writing");
