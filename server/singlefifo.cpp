@@ -28,7 +28,6 @@ std::string SingleFifo::read_input_line_blocking()
         throw InternalException("SingleFifo: Unable to open input pipe for reading");
     std::string input_buf;
 
-
     while (!std::getline(ifs, input_buf) || input_buf.empty())
     {
         ifs.clear();

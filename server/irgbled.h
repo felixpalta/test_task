@@ -33,7 +33,6 @@ public:
     virtual void set_color(Color color) = 0;
     virtual void set_rate(Rate rate) = 0;
 
-
     /**
      * @throw InternalException in case of internal error.
      */
